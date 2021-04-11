@@ -1,0 +1,65 @@
+/*Color palette obtain from Cooler.com*/
+
+:root {
+    --green-grey: #CAD2C5;
+    --sap-green: #84A98C;
+    --peacock-green: #52796F;
+    --dark-slate-grey: #354F52;
+    --cool-grey: #2F3E46;
+}
+
+body {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background: var(--green-grey);
+}
+
+header {
+    padding: 2%;
+    padding-bottom: 5%;
+    display: flex;
+    justify-content: space-between;
+                          
+}
+
+.high-scores, time {
+    padding: 5%
+}
+
+a{
+    color: var(--dark-slate-grey);
+}
+
+.main-content {
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+h1 {
+    font-size: 25px;
+    font-weight: bolder;
+    padding: 5%;
+    color: var(--cool-grey);
+}
+
+.sub-content {
+    padding: 5%;
+    color: var(--dark-slate-grey);
+}
+
+button {
+    padding: 1%;
+    margin: 5%;
+    border-radius: 10px;
+    box-shadow: 2px 2px black;
+    color: white;
+    background-color: var(--dark-slate-grey);
+    outline: none;
+}
+
+li {
+    text-decoration: none;
+}
