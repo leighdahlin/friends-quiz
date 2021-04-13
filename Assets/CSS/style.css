@@ -45,13 +45,28 @@ h1 {
     color: var(--cool-grey);
 }
 
+h1[class = "hidden"] {
+    visibility: hidden;
+}
+
+h1[class = "visible"] {
+    visibility: visible;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: bolder;
+    padding: 5.25%;
+    color: var(--cool-grey);
+}
+
 .sub-content {
     padding: 5%;
     color: var(--dark-slate-grey);
 }
 
-button {
-    padding: 1%;
+button, input[class = "visible"] {
+    padding: 1.5%;
     margin: 5%;
     border-radius: 10px;
     box-shadow: 2px 2px black;
@@ -62,4 +77,18 @@ button {
 
 li {
     text-decoration: none;
+}
+
+form {
+    width: 50%;
+}
+
+input[class = "hidden"] {
+    visibility: hidden;
+    background-color: orange;
+}
+
+input[class = "visible"] {
+    visibility: visible;
+    display: block;
 }
