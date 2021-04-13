@@ -47,6 +47,7 @@ h1 {
 
 h1[class = "hidden"] {
     visibility: hidden;
+    height: 0px;
 }
 
 h1[class = "visible"] {
@@ -83,12 +84,12 @@ form {
     width: 50%;
 }
 
-input[class = "hidden"] {
+button[class = "hidden"] {
     visibility: hidden;
     background-color: orange;
 }
 
-input[class = "visible"] {
+button[class = "visible"] {
     visibility: visible;
     display: block;
 }

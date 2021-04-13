@@ -9,6 +9,8 @@ var button1El = document.querySelector("#button1");
 var button2El = document.querySelector("#button2");
 var button3El = document.querySelector("#button3");
 var button4El = document.querySelector("#button4");
+var allButtons = document.querySelectorAll("button");
+var correctAnswer = true;
 
 var question1 = {
     question: "What is an object in Javascript?",
@@ -16,7 +18,7 @@ var question1 = {
     choice2: "An array but bigger",
     choice3: "A function for strings",
     choice4: "A function for strings",
-    answer: this.choice1, //see if I could use this to check answers
+    answer: this.choice1 //see if I could use this to check answers
 };
 
 var question2 = {
@@ -24,7 +26,8 @@ var question2 = {
     choice1: "A",
     choice2: "B",
     choice3: "C",
-    choice4: "D"
+    choice4: "D",
+    answer: this.choice1
 };
 
 var question3 = {
@@ -32,7 +35,8 @@ var question3 = {
     choice1: "E",
     choice2: "F",
     choice3: "G",
-    choice4: "H"
+    choice4: "H",
+    answer: this.choice1
 };
 
 var question4 = {
@@ -40,7 +44,8 @@ var question4 = {
     choice1: "I",
     choice2: "J",
     choice3: "K",
-    choice4: "L"
+    choice4: "L",
+    answer: this.choice1
 };
 
 var question5 = {
@@ -48,7 +53,8 @@ var question5 = {
     choice1: "M",
     choice2: "N",
     choice3: "O",
-    choice4: "P"
+    choice4: "P",
+    answer: this.choice1
 };
 
 
@@ -59,6 +65,7 @@ var currentChoice1 = questionBank[currentQuestionIndex].choice1;
 var currentChoice2 = questionBank[currentQuestionIndex].choice2;
 var currentChoice3 = questionBank[currentQuestionIndex].choice3;
 var currentChoice4 = questionBank[currentQuestionIndex].choice4;
+var questionAswer = questionBank[currentQuestionIndex].answer;
 
 
 
@@ -77,7 +84,7 @@ function shuffle(array) {
 
 
 function setTime() {
-    secondsLeft = 61;
+    secondsLeft = 11;
 var timerInterval = setInterval(function() {
     secondsLeft--;
     timeEl.textContent = "Timer: " + secondsLeft ;
@@ -108,19 +115,29 @@ function removeIntoPage() {
 }
 
 function QuestionPopUp(event) {
+    // event.preventDefault();
     questionEl.textContent = currentQuestion;
 
-    button1El.setAttribute("value", currentChoice1);
+    button1El.textContent = currentChoice1;
     button1El.setAttribute("class", "visible");
 
-    button2El.setAttribute("value", currentChoice2);
+    button2El.textContent = currentChoice2;
     button2El.setAttribute("class", "visible");
 
-    button3El.setAttribute("value", currentChoice3);
+    button3El.textContent = currentChoice3;
     button3El.setAttribute("class", "visible");
 
-    button4El.setAttribute("value", currentChoice4);
+    button4El.textContent = currentChoice4;
     button4El.setAttribute("class", "visible");
+
+    button1El.addEventListener("click", function() {
+        console.log(currentChoice1);
+        console.log(questionAswer);
+        if(currentChoice1 == questionAswer) {
+            console.log("correct!")
+        }
+    })
+    
 
 
 
@@ -210,17 +227,13 @@ function timesUpMessage() {
     button2El.remove();
     button3El.remove();
     button4El.remove();
-    // button1El.setAttribute("value", "");
-    // button1El.setAttribute("class", "hidden");
-    // button2El.setAttribute("value", "");
-    // button2El.setAttribute("class", "hidden");
-    // button3El.setAttribute("value", "");
-    // button3El.setAttribute("class", "hidden");
-    // button4El.setAttribute("value", "");
-    // button4El.setAttribute("class", "hidden");
 
     headingEl.setAttribute("class", "visible");
     headingEl.textContent = "Your time is up!";
+    var viewHighScore = document.createElement("p");
+    var textNode = document.createTextNode("View your high score");
+    viewHighScore.appendChild(textNode);
+    mainContentEl.appendChild(viewHighScore);
 
 }
 
