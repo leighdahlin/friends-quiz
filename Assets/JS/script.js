@@ -1,4 +1,4 @@
-var secondsLeft = 0;
+var secondsLeft = 121;
 var timeEl = document.querySelector("#time");
 var startButtonEl = document.querySelector(".start-button");
 var headingEl = document.querySelector("#main-content-head");
@@ -9,8 +9,8 @@ var button1El = document.querySelector("#button1");
 var button2El = document.querySelector("#button2");
 var button3El = document.querySelector("#button3");
 var button4El = document.querySelector("#button4");
-var allButtons = document.querySelectorAll("button");
-var correctAnswer = true;
+var answerEl = document.querySelector("#answer");
+var reduceTimer = false;
 
 var question1 = {
     question: "What is an object in Javascript?",
@@ -18,7 +18,9 @@ var question1 = {
     choice2: "An array but bigger",
     choice3: "A function for strings",
     choice4: "A function for strings",
-    answer: this.choice1 //see if I could use this to check answers
+    answer: function() {
+        return this.choice1;
+     } 
 };
 
 var question2 = {
@@ -27,7 +29,9 @@ var question2 = {
     choice2: "B",
     choice3: "C",
     choice4: "D",
-    answer: this.choice1
+    answer: function() {
+       return this.choice1;
+    }
 };
 
 var question3 = {
@@ -36,7 +40,9 @@ var question3 = {
     choice2: "F",
     choice3: "G",
     choice4: "H",
-    answer: this.choice1
+    answer: function() {
+        return this.choice1;
+     }
 };
 
 var question4 = {
@@ -45,7 +51,9 @@ var question4 = {
     choice2: "J",
     choice3: "K",
     choice4: "L",
-    answer: this.choice1
+    answer: function() {
+        return this.choice1;
+     }
 };
 
 var question5 = {
@@ -54,7 +62,9 @@ var question5 = {
     choice2: "N",
     choice3: "O",
     choice4: "P",
-    answer: this.choice1
+    answer: function() {
+        return this.choice1;
+     }
 };
 
 
@@ -65,7 +75,7 @@ var currentChoice1 = questionBank[currentQuestionIndex].choice1;
 var currentChoice2 = questionBank[currentQuestionIndex].choice2;
 var currentChoice3 = questionBank[currentQuestionIndex].choice3;
 var currentChoice4 = questionBank[currentQuestionIndex].choice4;
-var questionAswer = questionBank[currentQuestionIndex].answer;
+var questionAswer = questionBank[currentQuestionIndex].answer();
 
 
 
@@ -84,31 +94,39 @@ function shuffle(array) {
 
 
 function setTime() {
-    secondsLeft = 11;
+
 var timerInterval = setInterval(function() {
     secondsLeft--;
     timeEl.textContent = "Timer: " + secondsLeft ;
-    
+
+    if(reduceTimer === true) {
+        secondsLeft -= 15;
+        reduceTimer = false;
+        clearInterval(timerInterval);
+        setTime();
+    }
+
     if(secondsLeft === 0) {
         clearInterval(timerInterval);
         timesUpMessage();
-       
     }
 }
 , 1000)
 };
 
 function questionPopUps() {
-    removeIntoPage();
+    removeIntroPage();
     QuestionPopUp();
-    for(var i = 1; i < questionBank.length; i++) {
-        currentQuestionIndex = i;
-        QuestionPopUp();
-    }
+    checkAnswer();
+    
+    // for(var i = 1; i < questionBank.length; i++) {
+    //     currentQuestionIndex = i;
+    //     QuestionPopUp();
+    // }
     
 };
 
-function removeIntoPage() {
+function removeIntroPage() {
     headingEl.setAttribute("class", "hidden");
     subContentEl.remove();
     startButtonEl.remove();
@@ -130,95 +148,63 @@ function QuestionPopUp(event) {
     button4El.textContent = currentChoice4;
     button4El.setAttribute("class", "visible");
 
+}
+function checkAnswer() {
     button1El.addEventListener("click", function() {
-        console.log(currentChoice1);
-        console.log(questionAswer);
-        if(currentChoice1 == questionAswer) {
-            console.log("correct!")
+        if(currentChoice1 === questionAswer) {
+            answerEl.textContent = "Correct!";
+            currentQuestionIndex++;
+            reduceTimer = false;
+            console.log(currentQuestionIndex);
+        } else {
+            answerEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
+            currentQuestionIndex++;
+            reduceTimer = true;
         }
-    })
-    
+    });
 
+    button2El.addEventListener("click", function() {
+        if(currentChoice2 == questionAswer) {
+            console.log("correct!");
+            answerEl.textContent = "Correct!";
+            currentQuestionIndex++;
+            reduceTimer = false;
+        } else {
+            answerEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
+            currentQuestionIndex++;
+            reduceTimer = true;
+        }
+    });
 
+    button3El.addEventListener("click", function() {
+        if(currentChoice3 == questionAswer) {
+            console.log("correct!");
+            answerEl.textContent = "Correct!";
+            currentQuestionIndex++;
+            reduceTimer = false;
+        } else {
+            answerEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
+            currentQuestionIndex++;
+            reduceTimer = true;
+        }
+    });
 
-// var buttonDiv = document.createElement("div");
-// buttonDiv.setAttribute("id", "button-div");
-// buttonDiv.setAttribute("style", "display: flex; flex-direction: column; width: 45%;");
-// mainContentEl.appendChild(buttonDiv);
-// var buttonEl = document.querySelector("#button-div");
+    button4El.addEventListener("click", function() {
+        if(currentChoice4 == questionAswer) {
+            console.log("correct!");
+            answerEl.textContent = "Correct!";
+            currentQuestionIndex++;
+            reduceTimer = false;
+        } else {
+            answerEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
+            currentQuestionIndex++;
+            reduceTimer = true;
+        }
+    });
 
-// var choiceButton1 = document.createElement("button");
-// choiceButton1.setAttribute("id", "choice-button-1");
-// choiceButton1.setAttribute("class", "button");
-// choiceButton1.setAttribute("style", "text-align: left;"); //could use querySelectorAll to select all of these and set certain attributes using for loop
-// var buttonQuestion = document.createTextNode(choice1);
-// choiceButton1.appendChild(buttonQuestion);
-// buttonEl.appendChild(choiceButton1);
-
-
-// var choiceButton2 = document.createElement("button");
-// choiceButton2.setAttribute("id", "choice-button-2");
-// choiceButton2.setAttribute("class", "button");
-// choiceButton2.setAttribute("style", "text-align: left;");
-// var buttonQuestion = document.createTextNode(choice2);
-// choiceButton2.appendChild(buttonQuestion);
-// buttonEl.appendChild(choiceButton2);
-
-// var choiceButton3 = document.createElement("button");
-// choiceButton3.setAttribute("id", "choice-button-3");
-// choiceButton3.setAttribute("class", "button");
-// choiceButton3.setAttribute("style", "text-align: left;");
-// var buttonQuestion = document.createTextNode(choice3);
-// choiceButton3.appendChild(buttonQuestion);
-// buttonEl.appendChild(choiceButton3);
-
-// var choiceButton4 = document.createElement("button");
-// choiceButton4.setAttribute("id", "choice-button-4");
-// choiceButton4.setAttribute("class", "button");
-// choiceButton4.setAttribute("style", "text-align: left;");
-// var buttonQuestion = document.createTextNode(choice4);
-// choiceButton4.appendChild(buttonQuestion);
-// buttonEl.appendChild(choiceButton4);
-
-
-
-// var nextButton = document.createElement("button");
-// nextButton.setAttribute("id", "next-button")
-// var textNode = document.createTextNode("Next");
-// nextButton.appendChild(textNode);
-// mainContentEl.appendChild(nextButton);
-// var nextButtonEl = document.querySelector("#next-button");
-
-// nextButtonEl.addEventListener("click", nextQuestionPopUp);
+    return reduceTimer;
 
 }
-
-// function nextQuestionPopUp() {
-//     var randomQuestionIndex = questionBank[Math.floor(Math.random()*questionBank.length)];
-//     var randomQuestion = randomQuestionIndex.question;
-
-//     headingEl.textContent = randomQuestion;
-//     console.log(randomQuestionIndex.choice1)
-
-    // var choice1 = randomQuestionIndex.choice1;
-    // var choice2 = randomQuestionIndex.choice2;
-    // var choice3 = randomQuestionIndex.choice3;
-    // var choice4 = randomQuestionIndex.choice4;
-
-//     var choiceButton1El = document.querySelector("#choice-button-1");
-//     var choiceButton1E2 = document.querySelector("#choice-button-2");
-//     var choiceButton1E3 = document.querySelector("#choice-button-3");
-//     var choiceButton1E4 = document.querySelector("#choice-button-4");
-
-//     choiceButton1El.textContent = randomQuestionIndex.choice1;
-//     choiceButton1E2.textContent = randomQuestionIndex.choice2;
-//     choiceButton1E3.textContent = randomQuestionIndex.choice3;
-//     choiceButton1E4.textContent = randomQuestionIndex.choice4;
-
-//     var nextButtonEl = document.querySelector("#next-button");
-
-//     nextButtonEl.addEventListener("click", nextQuestionPopUp);
-// }
 
 function timesUpMessage() {
 
@@ -227,6 +213,7 @@ function timesUpMessage() {
     button2El.remove();
     button3El.remove();
     button4El.remove();
+    answerEl.remove();
 
     headingEl.setAttribute("class", "visible");
     headingEl.textContent = "Your time is up!";
