@@ -46,7 +46,7 @@ h1 {
 }
 
 h1[class = "hidden"] {
-    visibility: hidden;
+    display: none;
     height: 0px;
 }
 
@@ -85,7 +85,7 @@ form {
 }
 
 button[class = "hidden"] {
-    visibility: hidden;
+    display: none;
     background-color: orange;
 }
 

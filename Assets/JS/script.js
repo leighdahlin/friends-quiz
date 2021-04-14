@@ -70,12 +70,12 @@ var question5 = {
 
 var questionBank = [question1, question2, question3, question4, question5];
 var currentQuestionIndex = 0;
-var currentQuestion = questionBank[currentQuestionIndex].question;
-var currentChoice1 = questionBank[currentQuestionIndex].choice1;
-var currentChoice2 = questionBank[currentQuestionIndex].choice2;
-var currentChoice3 = questionBank[currentQuestionIndex].choice3;
-var currentChoice4 = questionBank[currentQuestionIndex].choice4;
-var questionAswer = questionBank[currentQuestionIndex].answer();
+// var currentQuestion = questionBank[currentQuestionIndex].question;
+// var currentChoice1 = questionBank[currentQuestionIndex].choice1;
+// var currentChoice2 = questionBank[currentQuestionIndex].choice2;
+// var currentChoice3 = questionBank[currentQuestionIndex].choice3;
+// var currentChoice4 = questionBank[currentQuestionIndex].choice4;
+// var questionAswer = questionBank[currentQuestionIndex].answer();
 
 
 
@@ -115,14 +115,20 @@ var timerInterval = setInterval(function() {
 };
 
 function questionPopUps() {
+
     removeIntroPage();
-    QuestionPopUp();
-    checkAnswer();
+    questionPopUp(0);
+   
+
+    // indexFunction();
+    // nextQuestion();
     
-    // for(var i = 1; i < questionBank.length; i++) {
-    //     currentQuestionIndex = i;
-    //     QuestionPopUp();
+    // for(var i = 0; i < questionBank.length; i++) {
+    //     questionPopUp();
+    //     checkAnswer();
+    //     currentQuestionIndex ++;
     // }
+
     
 };
 
@@ -132,8 +138,23 @@ function removeIntroPage() {
     startButtonEl.remove();
 }
 
-function QuestionPopUp(event) {
-    // event.preventDefault();
+function indexFunction() {
+    var index = 0;
+    if (questionBank.length < 5) {
+        index++;
+    }
+    return index;
+}
+
+function questionPopUp(i) {
+    // var currentQuestionIndex = 0;
+    var currentQuestion = questionBank[i].question;
+    var currentChoice1 = questionBank[i].choice1;
+    var currentChoice2 = questionBank[i].choice2;
+    var currentChoice3 = questionBank[i].choice3;
+    var currentChoice4 = questionBank[i].choice4;
+    var questionAswer = questionBank[i].answer();
+
     questionEl.textContent = currentQuestion;
 
     button1El.textContent = currentChoice1;
@@ -148,17 +169,21 @@ function QuestionPopUp(event) {
     button4El.textContent = currentChoice4;
     button4El.setAttribute("class", "visible");
 
-}
-function checkAnswer() {
+
+    console.log(i);
+    console.log(currentQuestion);
+
+
+    // checkAnswer();
+
     button1El.addEventListener("click", function() {
         if(currentChoice1 === questionAswer) {
             answerEl.textContent = "Correct!";
-            currentQuestionIndex++;
+            // currentQuestionIndex++;
             reduceTimer = false;
-            console.log(currentQuestionIndex);
         } else {
             answerEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
-            currentQuestionIndex++;
+            // currentQuestionIndex++;
             reduceTimer = true;
         }
     });
@@ -167,11 +192,11 @@ function checkAnswer() {
         if(currentChoice2 == questionAswer) {
             console.log("correct!");
             answerEl.textContent = "Correct!";
-            currentQuestionIndex++;
+            // currentQuestionIndex++;
             reduceTimer = false;
         } else {
             answerEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
-            currentQuestionIndex++;
+            // currentQuestionIndex++;
             reduceTimer = true;
         }
     });
@@ -180,11 +205,11 @@ function checkAnswer() {
         if(currentChoice3 == questionAswer) {
             console.log("correct!");
             answerEl.textContent = "Correct!";
-            currentQuestionIndex++;
+            // currentQuestionIndex++;
             reduceTimer = false;
         } else {
             answerEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
-            currentQuestionIndex++;
+            // currentQuestionIndex++;
             reduceTimer = true;
         }
     });
@@ -193,16 +218,80 @@ function checkAnswer() {
         if(currentChoice4 == questionAswer) {
             console.log("correct!");
             answerEl.textContent = "Correct!";
-            currentQuestionIndex++;
+            // currentQuestionIndex++;
             reduceTimer = false;
         } else {
             answerEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
-            currentQuestionIndex++;
+            // currentQuestionIndex++;
             reduceTimer = true;
         }
     });
 
     return reduceTimer;
+
+
+}
+
+
+
+
+function nextQuestion() {
+    questionPopUp();
+}
+
+function checkAnswer() {
+    // button1El.addEventListener("click", function() {
+    //     if(currentChoice1 === questionAswer) {
+    //         answerEl.textContent = "Correct!";
+    //         // currentQuestionIndex++;
+    //         reduceTimer = false;
+    //     } else {
+    //         answerEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
+    //         // currentQuestionIndex++;
+    //         reduceTimer = true;
+    //     }
+    // });
+
+    // button2El.addEventListener("click", function() {
+    //     if(currentChoice2 == questionAswer) {
+    //         console.log("correct!");
+    //         answerEl.textContent = "Correct!";
+    //         // currentQuestionIndex++;
+    //         reduceTimer = false;
+    //     } else {
+    //         answerEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
+    //         // currentQuestionIndex++;
+    //         reduceTimer = true;
+    //     }
+    // });
+
+    // button3El.addEventListener("click", function() {
+    //     if(currentChoice3 == questionAswer) {
+    //         console.log("correct!");
+    //         answerEl.textContent = "Correct!";
+    //         // currentQuestionIndex++;
+    //         reduceTimer = false;
+    //     } else {
+    //         answerEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
+    //         // currentQuestionIndex++;
+    //         reduceTimer = true;
+    //     }
+    // });
+
+    // button4El.addEventListener("click", function() {
+    //     if(currentChoice4 == questionAswer) {
+    //         console.log("correct!");
+    //         answerEl.textContent = "Correct!";
+    //         // currentQuestionIndex++;
+    //         reduceTimer = false;
+    //     } else {
+    //         answerEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
+    //         // currentQuestionIndex++;
+    //         reduceTimer = true;
+    //     }
+    // });
+
+    // return reduceTimer;
 
 }
 
