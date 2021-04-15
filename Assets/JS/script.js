@@ -82,7 +82,7 @@ var questionAswer = questionBank[index].answer();
 
 startButtonEl.addEventListener("click", removeIntroPage);
 startButtonEl.addEventListener("click", setTime);
-startButtonEl.addEventListener("click", questionPopUps);
+startButtonEl.addEventListener("click", firstPopUp);
 
 
 //using the Fisher-Yates shuffle
@@ -117,8 +117,13 @@ var timerInterval = setInterval(function() {
 , 1000)
 };
 
-function questionPopUps() {
+function firstPopUp() {
     questionPopUp();
+    checkAnswer();
+}
+
+function questionPopUps() {
+    setTimeout(questionPopUp, 1500);
     checkAnswer();
 
 };
@@ -178,10 +183,12 @@ function checkAnswer() {
             // currentQuestionIndex++;
             reduceTimer = false;
             score += 1;
+            
         } else {
             answerEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
             // currentQuestionIndex++;
             reduceTimer = true;
+            
         }
     });
 
@@ -249,9 +256,5 @@ function timesUpMessage() {
 
 }
 
-// function init() {
-    
-// }
 
-// init();
 
