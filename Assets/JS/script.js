@@ -138,6 +138,8 @@ function removeIntroPage() {
 
 function questionPopUp() {
 
+    answerEl.textContent = "";
+
     questionBankCopy = questionBank;
     console.log(questionBankCopy);
 
@@ -178,15 +180,14 @@ function questionPopUp() {
 
 function checkAnswer() {
     button1El.addEventListener("click", function() {
+        
         if(currentChoice1 === questionAswer) {
-            answerEl.textContent = "Correct!";
-            // currentQuestionIndex++;
-            reduceTimer = false;
-            score += 1;
+                answerEl.textContent = "Correct!";
+                reduceTimer = false;
+                score += 1;
             
         } else {
             answerEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
-            // currentQuestionIndex++;
             reduceTimer = true;
             
         }
@@ -194,9 +195,7 @@ function checkAnswer() {
 
     button2El.addEventListener("click", function() {
         if(currentChoice2 == questionAswer) {
-            console.log("correct!");
             answerEl.textContent = "Correct!";
-            // currentQuestionIndex++;
             reduceTimer = false;
             score += 1;
         } else {
@@ -208,28 +207,22 @@ function checkAnswer() {
 
     button3El.addEventListener("click", function() {
         if(currentChoice3 == questionAswer) {
-            console.log("correct!");
             answerEl.textContent = "Correct!";
-            // currentQuestionIndex++;
             reduceTimer = false;
             score += 1;
         } else {
             answerEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
-            // currentQuestionIndex++;
             reduceTimer = true;
         }
     });
 
     button4El.addEventListener("click", function() {
         if(currentChoice4 == questionAswer) {
-            console.log("correct!");
             answerEl.textContent = "Correct!";
-            // currentQuestionIndex++;
             reduceTimer = false;
             score += 1;
         } else {
             answerEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
-            // currentQuestionIndex++;
             reduceTimer = true;
         }
     });
