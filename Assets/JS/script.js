@@ -1,4 +1,4 @@
-var secondsLeft = 121;
+var secondsLeft = 61;
 var timeEl = document.querySelector("#time");
 var startButtonEl = document.querySelector(".start-button");
 var headingEl = document.querySelector("#main-content-head");
@@ -12,6 +12,7 @@ var button4El = document.querySelector("#button4");
 var answerEl = document.querySelector("#answer");
 var reduceTimer = false;
 var score = 0;
+var finishQuiz = false;
 
 var question1 = {
     question: "What is an object in Javascript?",
@@ -71,29 +72,18 @@ var question5 = {
 
 var questionBank = [question1, question2, question3, question4, question5];
 var questionBankCopy = [];
-var index = 0;
-var currentQuestion = questionBank[index].question;
-var currentChoice1 = questionBank[index].choice1;
-var currentChoice2 = questionBank[index].choice2;
-var currentChoice3 = questionBank[index].choice3;
-var currentChoice4 = questionBank[index].choice4;
-var questionAswer = questionBank[index].answer();
+// var index = 0;
+// var currentQuestion = questionBank[index].question;
+// var currentChoice1 = questionBank[index].choice1;
+// var currentChoice2 = questionBank[index].choice2;
+// var currentChoice3 = questionBank[index].choice3;
+// var currentChoice4 = questionBank[index].choice4;
+// var questionAswer = questionBank[index].answer();
 
 
 startButtonEl.addEventListener("click", removeIntroPage);
 startButtonEl.addEventListener("click", setTime);
-startButtonEl.addEventListener("click", firstPopUp);
-
-
-//using the Fisher-Yates shuffle
-// function shuffle(array) {
-//     for (var i = array.length-1; i > 0; i--){
-//         let j = Math.floor(Math.random()*(i+1));
-//         [array[i], array[j]] = [array[j], array[i]]
-//         array.join('');
-//     }
-//     console.log(array);
-// }
+startButtonEl.addEventListener("click", questionPopUps);
 
 
 function setTime() {
@@ -109,17 +99,18 @@ var timerInterval = setInterval(function() {
         setTime();
     }
 
+    if(finishQuiz === true) {
+        clearInterval(timerInterval);
+        timeEl.textContent = "";
+    }
+
     if(secondsLeft === 0) {
         clearInterval(timerInterval);
+        timeEl.textContent = "";
         timesUpMessage();
     }
 }
 , 1000)
-};
-
-function firstPopUp() {
-    questionPopUp();
-    checkAnswer();
 };
 
 function questionPopUps() {
@@ -137,19 +128,25 @@ function removeIntroPage() {
 
 function questionPopUp() {
 
+    button1El.setAttribute.disabled = false;
+    button2El.setAttribute.disabled = false;
+    button3El.setAttribute.disabled = false;
+    button4El.setAttribute.disabled = false;
+
     answerEl.textContent = "";
 
     questionBankCopy = questionBank;
-    console.log(questionBankCopy);
+
+    console.log(questionBankCopy)
 
     index = Math.floor(Math.random()*questionBankCopy.length);
 
-    currentQuestion = questionBank[index].question;
-    currentChoice1 = questionBank[index].choice1;
-    currentChoice2 = questionBank[index].choice2;
-    currentChoice3 = questionBank[index].choice3;
-    currentChoice4 = questionBank[index].choice4;
-    questionAswer = questionBank[index].answer();
+    currentQuestion = questionBankCopy[index].question;
+    currentChoice1 = questionBankCopy[index].choice1;
+    currentChoice2 = questionBankCopy[index].choice2;
+    currentChoice3 = questionBankCopy[index].choice3;
+    currentChoice4 = questionBankCopy[index].choice4;
+    questionAswer = questionBankCopy[index].answer();
 
     questionEl.textContent = currentQuestion;
 
@@ -166,17 +163,37 @@ function questionPopUp() {
     button4El.setAttribute("class", "visible");
 
     questionBankCopy.splice(index,1);
+
+    console.log(questionBankCopy);
+
+    if (questionBankCopy.length === 0) {
+        endOfQuiz();
+        finishQuiz = true;
+    };
 }
 
 function ifCorrect() {
     answerEl.textContent = "Correct!";
+    button1El.setAttribute.disabled = true;
+    button2El.setAttribute.disabled = true;
+    button3El.setAttribute.disabled = true;
+    button4El.setAttribute.disabled = true;
     reduceTimer = false;
-    score += 1;
+    increaseScore = true;
+    console.log(score);
+    questionPopUps();
+
+    return increaseScore;
 }
 
 function ifIncorrect() {
     answerEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
+    button1El.setAttribute.disabled = true;
+    button2El.setAttribute.disabled = true;
+    button3El.setAttribute.disabled = true;
+    button4El.setAttribute.disabled = true;
     reduceTimer = true;
+    questionPopUps();
 
 }
 
@@ -185,15 +202,13 @@ function checkAnswer() {
         
         if(currentChoice1 === questionAswer) {
             ifCorrect();
-            
         } else {
             ifIncorrect();
-            
         }
     });
 
     button2El.addEventListener("click", function() {
-        if(currentChoice2 == questionAswer) {
+        if(currentChoice2 === questionAswer) {
             ifCorrect();
         } else {
             ifIncorrect();
@@ -201,7 +216,7 @@ function checkAnswer() {
     });
 
     button3El.addEventListener("click", function() {
-        if(currentChoice3 == questionAswer) {
+        if(currentChoice3 === questionAswer) {
             ifCorrect();
         } else {
             ifIncorrect();
@@ -209,7 +224,7 @@ function checkAnswer() {
     });
 
     button4El.addEventListener("click", function() {
-        if(currentChoice4 == questionAswer) {
+        if(currentChoice4 === questionAswer) {
             ifCorrect();
         } else {
             ifIncorrect();
@@ -218,6 +233,13 @@ function checkAnswer() {
     
     return reduceTimer;
 
+}
+
+function calculateScore() {
+    if (increaseScore === true) {
+        score ++;
+    }
+    console.log(score);
 }
 
 function timesUpMessage() {
@@ -236,6 +258,17 @@ function timesUpMessage() {
     viewHighScore.appendChild(textNode);
     mainContentEl.appendChild(viewHighScore);
 
+}
+
+function endOfQuiz() {
+    questionEl.remove();
+    button1El.remove();
+    button2El.remove();
+    button3El.remove();
+    button4El.remove();
+    answerEl.remove();
+
+    console.log("End of quiz!");
 }
 
 
