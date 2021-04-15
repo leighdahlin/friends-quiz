@@ -120,12 +120,11 @@ var timerInterval = setInterval(function() {
 function firstPopUp() {
     questionPopUp();
     checkAnswer();
-}
+};
 
 function questionPopUps() {
-    setTimeout(questionPopUp, 1500);
+    setTimeout(questionPopUp, 1000);
     checkAnswer();
-
 };
 
 
@@ -133,7 +132,7 @@ function removeIntroPage() {
     headingEl.setAttribute("class", "hidden");
     subContentEl.remove();
     startButtonEl.remove();
-}
+};
 
 
 function questionPopUp() {
@@ -167,66 +166,56 @@ function questionPopUp() {
     button4El.setAttribute("class", "visible");
 
     questionBankCopy.splice(index,1);
-    
-
 }
 
+function ifCorrect() {
+    answerEl.textContent = "Correct!";
+    reduceTimer = false;
+    score += 1;
+}
 
+function ifIncorrect() {
+    answerEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
+    reduceTimer = true;
 
-
-// function nextQuestion() {
-//     questionPopUp();
-// }
+}
 
 function checkAnswer() {
     button1El.addEventListener("click", function() {
         
         if(currentChoice1 === questionAswer) {
-                answerEl.textContent = "Correct!";
-                reduceTimer = false;
-                score += 1;
+            ifCorrect();
             
         } else {
-            answerEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
-            reduceTimer = true;
+            ifIncorrect();
             
         }
     });
 
     button2El.addEventListener("click", function() {
         if(currentChoice2 == questionAswer) {
-            answerEl.textContent = "Correct!";
-            reduceTimer = false;
-            score += 1;
+            ifCorrect();
         } else {
-            answerEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
-            // currentQuestionIndex++;
-            reduceTimer = true;
+            ifIncorrect();
         }
     });
 
     button3El.addEventListener("click", function() {
         if(currentChoice3 == questionAswer) {
-            answerEl.textContent = "Correct!";
-            reduceTimer = false;
-            score += 1;
+            ifCorrect();
         } else {
-            answerEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
-            reduceTimer = true;
+            ifIncorrect();
         }
     });
 
     button4El.addEventListener("click", function() {
         if(currentChoice4 == questionAswer) {
-            answerEl.textContent = "Correct!";
-            reduceTimer = false;
-            score += 1;
+            ifCorrect();
         } else {
-            answerEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
-            reduceTimer = true;
+            ifIncorrect();
         }
     });
-    console.log(score);
+    
     return reduceTimer;
 
 }
