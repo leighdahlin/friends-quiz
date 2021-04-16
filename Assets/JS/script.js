@@ -9,12 +9,14 @@ var button1El = document.querySelector("#button1");
 var button2El = document.querySelector("#button2");
 var button3El = document.querySelector("#button3");
 var button4El = document.querySelector("#button4");
-var nextBtn = document.querySelector('#next')
+var nextBtn = document.querySelector('#next');
+var finishBtn = document.querySelector('#finish');
 var answerEl = document.querySelector("#answer");
 var index = 0;
 var reduceTimer = false;
 var score = 0;
 var finishQuiz = false;
+
 
 var question1 = {
     question: "What is an object in Javascript?",
@@ -73,12 +75,13 @@ var question5 = {
 
 
 var questionBank = [question1, question2, question3, question4, question5];
-var questionBankCopy = questionBank.slice();
+// var questionBankCopy = questionBank.slice();
+// var counter = questionBank.length + 1;
 
 startButtonEl.addEventListener("click", removeIntroPage);
 startButtonEl.addEventListener("click", setTime);
 startButtonEl.addEventListener("click", questionPopUps);
-nextBtn.addEventListener("click", questionPopUps);
+// nextBtn.addEventListener("click", questionPopUps);
 
 function removeIntroPage() {
     headingEl.setAttribute("class", "hidden");
@@ -124,32 +127,58 @@ function timesUpMessage() {
     answerEl.remove();
     nextBtn.remove();
 
+    finishBtn.setAttribute("class", "visible");
     headingEl.setAttribute("class", "visible");
     headingEl.textContent = "Your time is up!";
-    var viewHighScore = document.createElement("p");
-    var textNode = document.createTextNode("View your high score");
-    viewHighScore.appendChild(textNode);
-    mainContentEl.appendChild(viewHighScore);
 
 }
 
 function questionPopUps() {
-    button1El.setAttribute.disabled = false;
-    button2El.setAttribute.disabled = false;
-    button3El.setAttribute.disabled = false;
-    button4El.setAttribute.disabled = false;
+    
+    // button1El.setAttribute.disabled = false;
+    // button2El.setAttribute.disabled = false;
+    // button3El.setAttribute.disabled = false;
+    // button4El.setAttribute.disabled = false;
     // setTimeout(questionPopUp, 1000);
     questionPopUp();
     checkAnswer();
+    // counter--;
+    // if (counter === 0) {
+    //         endOfQuiz();
+    //         finishQuiz = true;
+    //     };
+    
+
+    // calculateScore();
+
+    // if (increaseScore == true) {
+    //     score ++;
+    //     increaseScore == false;
+    // }
+    // console.log("This is the score:")
+    // console.log(score);
     
     // setTimeout(spliceAndCheck, 0500);
 
     
 };
+function shuffleArray() {
+    for (var i = questionBank.length-1; i > 0; i--){
+        let j = Math.floor(Math.random()*(i+1));
+        [questionBank[i], questionBank[j]] = [questionBank[j], questionBank[i]]
+        questionBank.join('');
+    }
+
+        console.log("This is the shuffled array:");
+        console.log(questionBank);
+}
 
 function questionPopUp() {
-    
-    nextBtn.setAttribute("class", "hidden")
+
+    // event.stopPropagation();
+
+    nextBtn.setAttribute("class", "hidden");
+    nextBtn.removeEventListener("click", questionPopUps, true);
 
     increaseScore = false;
     button1El.setAttribute.disabled = false;
@@ -159,17 +188,18 @@ function questionPopUp() {
 
     answerEl.textContent = "";
 
-    console.log("This is the length of the array before it's spliced:")
-    console.log(questionBankCopy.length);
+    // console.log("This is the length of the array before it's spliced:")
+    // console.log(questionBankCopy.length);
 
-    index = Math.floor(Math.random()*questionBankCopy.length);
+    
+    // index = Math.floor(Math.random()*questionBankCopy.length);
 
-    currentQuestion = questionBankCopy[index].question;
-    currentChoice1 = questionBankCopy[index].choice1;
-    currentChoice2 = questionBankCopy[index].choice2;
-    currentChoice3 = questionBankCopy[index].choice3;
-    currentChoice4 = questionBankCopy[index].choice4;
-    questionAswer = questionBankCopy[index].answer();
+    currentQuestion = questionBank[index].question;
+    currentChoice1 = questionBank[index].choice1;
+    currentChoice2 = questionBank[index].choice2;
+    currentChoice3 = questionBank[index].choice3;
+    currentChoice4 = questionBank[index].choice4;
+    questionAswer = questionBank[index].answer();
 
     questionEl.textContent = currentQuestion;
 
@@ -185,6 +215,11 @@ function questionPopUp() {
     button4El.textContent = currentChoice4;
     button4El.setAttribute("class", "visible");
 
+    index += 1;
+    // counter --;
+
+    // console.log("counter: " + counter);
+
     // questionBankCopy.splice(index,1);
 
     // console.log("This is the length of the array after it's spliced:")
@@ -196,19 +231,31 @@ function questionPopUp() {
 
 function ifCorrect() {
     answerEl.textContent = "Correct!";
+    // removeEventListeners();
     // button1El.setAttribute('disabled','disabled');
     // button2El.setAttribute('disabled','disabled');
     // button3El.setAttribute('disabled','disabled');
     // button4El.setAttribute('disabled','disabled');
     reduceTimer = false;
-    increaseScore = true;
-    calculateScore();
+    
+    // calculateScore();
     // questionPopUps();
-    nextBtn.setAttribute("class", "visible");
+    if(index < 5) {
+        nextBtn.setAttribute("class", "visible");
+        nextBtn.addEventListener("click", questionPopUps);
+        increaseScore = true;
+    } else {
+        nextBtn.setAttribute("class", "visible");
+        nextBtn.textContent = "See your final score"
+        nextBtn.addEventListener("click", endOfQuiz);
+        increaseScore = true;
+        finishQuiz = true;
+    }
 }
 
 function ifIncorrect() {
     answerEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
+    // removeEventListeners();
     // button1El.setAttribute('disabled','disabled');
     // button2El.setAttribute('disabled','disabled');
     // button3El.setAttribute('disabled','disabled');
@@ -219,18 +266,27 @@ function ifIncorrect() {
     // button4El.setAttribute.disabled = true;
     reduceTimer === true;
     // questionPopUps();
-    calculateScore();
-    nextBtn.setAttribute("class", "visible");
+    // calculateScore();
+    if(index < 5) {
+        nextBtn.setAttribute("class", "visible");
+        nextBtn.addEventListener("click", questionPopUps);
+    } else {
+        nextBtn.setAttribute("class", "visible");
+        nextBtn.textContent = "See your final score"
+        nextBtn.addEventListener("click", endOfQuiz);
+        endOfQuiz();
+        finishQuiz = true;
+    }
 
 }
 
 function checkAnswer() {
-    questionBankCopy.splice(index,1);
+    // questionBankCopy.splice(index,1);
 
-    if (questionBankCopy.length === 0) {
-        endOfQuiz();
-        finishQuiz = true;
-    };
+    // if (questionBankCopy.length === 0) {
+    //     endOfQuiz();
+    //     finishQuiz = true;
+    // };
 
     button1El.addEventListener("click", function() {
         if(currentChoice1 === questionAswer) {
@@ -264,20 +320,45 @@ function checkAnswer() {
         }
     });
     
+    
     return reduceTimer;
 
 }
 
-// function spliceAndCheck() {
-//     questionBankCopy.splice(index,1);
+// function removeEventListeners() {
 
-//     console.log("This is the length of the array after it's spliced:")
-//     console.log(questionBankCopy.length);
+//     button1El.removeEventListener("click", function() {
+//         if(currentChoice1 === questionAswer) {
+//             ifCorrect();
+//         } else {
+//             ifIncorrect();
+//         }
+//     }, true);
 
-//     if (questionBankCopy.length === 0) {
-//         endOfQuiz();
-//         finishQuiz = true;
-//     };
+//     button2El.removeEventListener("click", function() {
+//         if(currentChoice2 === questionAswer) {
+//             ifCorrect();
+//         } else {
+//             ifIncorrect();
+//         }
+//     }, true);
+
+//     button3El.removeEventListener("click", function() {
+//         if(currentChoice3 === questionAswer) {
+//             ifCorrect();
+//         } else {
+//             ifIncorrect();
+//         }
+//     }, true);
+
+//     button4El.removeEventListener("click", function() {
+//         if(currentChoice4 === questionAswer) {
+//             ifCorrect();
+//         } else {
+//             ifIncorrect();
+//         }
+//     }, true);
+    
 
 // }
 
@@ -299,8 +380,17 @@ function endOfQuiz() {
     answerEl.remove();
     nextBtn.remove();
 
+    finishBtn.setAttribute("class", "visible");
+    headingEl.setAttribute("class", "visible");
+    headingEl.textContent = "You finished!";
+
+
     console.log("End of quiz!");
 }
 
+function init() {
+    shuffleArray();
+}
 
+init();
 
