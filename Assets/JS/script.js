@@ -5,13 +5,18 @@ var headingEl = document.querySelector("#main-content-head");
 var subContentEl = document.querySelector("#sub-content");
 var mainContentEl = document.querySelector(".main-content");
 var questionEl = document.querySelector("#question-head");
-var button1El = document.querySelector("#button1");
-var button2El = document.querySelector("#button2");
-var button3El = document.querySelector("#button3");
-var button4El = document.querySelector("#button4");
-var nextBtn = document.querySelector('#next');
-var finishBtn = document.querySelector('#finish');
-var answerEl = document.querySelector("#answer");
+
+var buttonsEl = document.querySelector(".button-div");
+var displayAnswerEl = document.querySelector(".answer")
+var nextQEl = document.querySelector(".next-div")
+
+// var button1El = document.querySelector("#button1");
+// var button2El = document.querySelector("#button2");
+// var button3El = document.querySelector("#button3");
+// var button4El = document.querySelector("#button4");
+// var nextBtn = document.querySelector('#next');
+// var finishBtn = document.querySelector('#finish');
+// var answerEl = document.querySelector("#answer");
 var index = 0;
 var reduceTimer = false;
 var score = 0;
@@ -80,7 +85,7 @@ var questionBank = [question1, question2, question3, question4, question5];
 
 startButtonEl.addEventListener("click", removeIntroPage);
 startButtonEl.addEventListener("click", setTime);
-startButtonEl.addEventListener("click", questionPopUps);
+startButtonEl.addEventListener("click", questionPopUp);
 // nextBtn.addEventListener("click", questionPopUps);
 
 function removeIntroPage() {
@@ -135,15 +140,15 @@ function timesUpMessage() {
 
 }
 
-function questionPopUps() {
+// function questionPopUps() {
     
     // button1El.setAttribute.disabled = false;
     // button2El.setAttribute.disabled = false;
     // button3El.setAttribute.disabled = false;
     // button4El.setAttribute.disabled = false;
     // setTimeout(questionPopUp, 1000);
-    questionPopUp();
-    checkAnswer();
+    // questionPopUp();
+    // checkAnswer();
     // counter--;
     // if (counter === 0) {
     //         endOfQuiz();
@@ -163,7 +168,7 @@ function questionPopUps() {
     // setTimeout(spliceAndCheck, 0500);
 
     
-};
+// };
 function shuffleArray() {
     for (var i = questionBank.length-1; i > 0; i--){
         let j = Math.floor(Math.random()*(i+1));
@@ -179,17 +184,18 @@ function questionPopUp() {
 
     // event.stopPropagation();
 
-    nextBtn.setAttribute("class", "hidden");
-    nextBtn.removeEventListener("click", questionPopUps, false);
+    // nextBtn.setAttribute("class", "hidden");
+    // nextBtn.removeEventListener("click", questionPopUps, false);
+    
     
 
-    increaseScore = false;
-    button1El.setAttribute.disabled = false;
-    button2El.setAttribute.disabled = false;
-    button3El.setAttribute.disabled = false;
-    button4El.setAttribute.disabled = false;
+    // increaseScore = false;
+    // button1El.setAttribute.disabled = false;
+    // button2El.setAttribute.disabled = false;
+    // button3El.setAttribute.disabled = false;
+    // button4El.setAttribute.disabled = false;
 
-    answerEl.textContent = "";
+    // answerEl.textContent = "";
 
     // console.log("This is the length of the array before it's spliced:")
     // console.log(questionBankCopy.length);
@@ -198,25 +204,271 @@ function questionPopUp() {
     // index = Math.floor(Math.random()*questionBankCopy.length);
 
     currentQuestion = questionBank[index].question;
+
+    questionEl.textContent = currentQuestion;
+
     currentChoice1 = questionBank[index].choice1;
     currentChoice2 = questionBank[index].choice2;
     currentChoice3 = questionBank[index].choice3;
     currentChoice4 = questionBank[index].choice4;
     questionAswer = questionBank[index].answer();
+    var allchoices = [currentChoice1, currentChoice2, currentChoice3, currentChoice4]
 
-    questionEl.textContent = currentQuestion;
+    for (var i = 0; i < allchoices.length; i++) {
+        var buttonEl = document.createElement('button');
+        buttonEl.textContent = allchoices[i];
+        buttonEl.setAttribute('type', 'button');
+        buttonEl.className = "button" + i;
+        buttonsEl.appendChild(buttonEl);
+    }
 
-    button1El.textContent = currentChoice1;
-    button1El.setAttribute("class", "visible");
+    var firstButton = document.querySelector('.button0');
+    var secondButton = document.querySelector('.button1');
+    var thirdButton = document.querySelector('.button2');
+    var fourthButton = document.querySelector('.button3');
+    var newEl = document.createElement('p');
+    newEl.className = "correct-incorrect";
+    displayAnswerEl.appendChild(newEl);
+    var correctEl = document.querySelector('.correct-incorrect');
 
-    button2El.textContent = currentChoice2;
-    button2El.setAttribute("class", "visible");
 
-    button3El.textContent = currentChoice3;
-    button3El.setAttribute("class", "visible");
+    firstButton.addEventListener("click", function() {
+        if(currentChoice1 === questionAswer) {
+            // ifCorrect();
+            correctEl.textContent = "Correct!";
+            firstButton.setAttribute('disabled','disabled');
+            secondButton.setAttribute('disabled','disabled');
+            thirdButton.setAttribute('disabled','disabled');
+            fourthButton.setAttribute('disabled','disabled');
 
-    button4El.textContent = currentChoice4;
-    button4El.setAttribute("class", "visible");
+            score += 1;
+            console.log("This is the current score: " + score);
+
+            var nextCreate = document.createElement('button');
+            nextCreate.className = "next";
+            nextCreate.textContent = "Next Question";
+            nextCreate.setAttribute('type', 'button');
+            nextQEl.appendChild(nextCreate);
+            var nextEl = document.querySelector('.next');
+            nextEl.addEventListener("click", function() {
+                firstButton.remove();
+                secondButton.remove();
+                thirdButton.remove();
+                fourthButton.remove();
+                nextEl.remove();
+                correctEl.textContent = "";
+                questionPopUp();
+            })
+
+        } else {
+            // ifIncorrect();
+            correctEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
+            firstButton.setAttribute('disabled','disabled');
+            secondButton.setAttribute('disabled','disabled');
+            thirdButton.setAttribute('disabled','disabled');
+            fourthButton.setAttribute('disabled','disabled');
+
+            reduceTimer = true;
+            console.log("Reduce time? " + reduceTimer);
+
+            var nextCreate = document.createElement('button');
+            nextCreate.className = "next";
+            nextCreate.textContent = "Next Question";
+            nextCreate.setAttribute('type', 'button');
+            nextQEl.appendChild(nextCreate);
+            var nextEl = document.querySelector('.next');
+            nextEl.addEventListener("click", function() {
+                firstButton.remove();
+                secondButton.remove();
+                thirdButton.remove();
+                fourthButton.remove();
+                nextEl.remove();
+                correctEl.textContent = "";
+                questionPopUp();
+            })
+        }
+    }, true);
+
+    secondButton.addEventListener("click", function() {
+        if(currentChoice2 === questionAswer) {
+            // ifCorrect();
+            correctEl.textContent = "Correct!";
+            firstButton.setAttribute('disabled','disabled');
+            secondButton.setAttribute('disabled','disabled');
+            thirdButton.setAttribute('disabled','disabled');
+            fourthButton.setAttribute('disabled','disabled');
+
+            score += 1;
+            console.log("This is the current score: " + score);
+
+            var nextCreate = document.createElement('button');
+            nextCreate.className = "next";
+            nextCreate.textContent = "Next Question";
+            nextCreate.setAttribute('type', 'button');
+            nextQEl.appendChild(nextCreate);
+            var nextEl = document.querySelector('.next');
+            nextEl.addEventListener("click", function() {
+                firstButton.remove();
+                secondButton.remove();
+                thirdButton.remove();
+                fourthButton.remove();
+                nextEl.remove();
+                correctEl.textContent = "";
+                questionPopUp();
+            })
+        } else {
+            // ifIncorrect();
+            correctEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
+            firstButton.setAttribute('disabled','disabled');
+            secondButton.setAttribute('disabled','disabled');
+            thirdButton.setAttribute('disabled','disabled');
+            fourthButton.setAttribute('disabled','disabled');
+
+            reduceTimer = true;
+            console.log("Reduce time? " + reduceTimer);
+
+            var nextCreate = document.createElement('button');
+            nextCreate.className = "next";
+            nextCreate.textContent = "Next Question";
+            nextCreate.setAttribute('type', 'button');
+            nextQEl.appendChild(nextCreate);
+            var nextEl = document.querySelector('.next');
+            nextEl.addEventListener("click", function() {
+                firstButton.remove();
+                secondButton.remove();
+                thirdButton.remove();
+                fourthButton.remove();
+                nextEl.remove();
+                correctEl.textContent = "";
+                questionPopUp();
+            })
+        }
+    }, true);
+
+    thirdButton.addEventListener("click", function() {
+        if(currentChoice3 === questionAswer) {
+            // ifCorrect();
+            correctEl.textContent = "Correct!";
+            firstButton.setAttribute('disabled','disabled');
+            secondButton.setAttribute('disabled','disabled');
+            thirdButton.setAttribute('disabled','disabled');
+            fourthButton.setAttribute('disabled','disabled');
+
+            score += 1;
+            console.log("This is the current score: " + score);
+
+            var nextCreate = document.createElement('button');
+            nextCreate.className = "next";
+            nextCreate.textContent = "Next Question";
+            nextCreate.setAttribute('type', 'button');
+            nextQEl.appendChild(nextCreate);
+            var nextEl = document.querySelector('.next');
+            nextEl.addEventListener("click", function() {
+                firstButton.remove();
+                secondButton.remove();
+                thirdButton.remove();
+                fourthButton.remove();
+                nextEl.remove();
+                correctEl.textContent = "";
+                questionPopUp();
+            })
+        } else {
+            // ifIncorrect();
+            correctEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
+            firstButton.setAttribute('disabled','disabled');
+            secondButton.setAttribute('disabled','disabled');
+            thirdButton.setAttribute('disabled','disabled');
+            fourthButton.setAttribute('disabled','disabled');
+
+            reduceTimer = true;
+            console.log("Reduce time? " + reduceTimer);
+
+            var nextCreate = document.createElement('button');
+            nextCreate.className = "next";
+            nextCreate.textContent = "Next Question";
+            nextCreate.setAttribute('type', 'button');
+            nextQEl.appendChild(nextCreate);
+            var nextEl = document.querySelector('.next');
+            nextEl.addEventListener("click", function() {
+                firstButton.remove();
+                secondButton.remove();
+                thirdButton.remove();
+                fourthButton.remove();
+                nextEl.remove();
+                correctEl.textContent = "";
+                questionPopUp();
+            })
+        }
+    }, true);
+
+    fourthButton.addEventListener("click", function() {
+        if(currentChoice4 === questionAswer) {
+            // ifCorrect();
+            correctEl.textContent = "Correct!";
+            firstButton.setAttribute('disabled','disabled');
+            secondButton.setAttribute('disabled','disabled');
+            thirdButton.setAttribute('disabled','disabled');
+            fourthButton.setAttribute('disabled','disabled');
+
+            score += 1;
+            console.log("This is the current score: " + score);
+
+            var nextCreate = document.createElement('button');
+            nextCreate.className = "next";
+            nextCreate.textContent = "Next Question";
+            nextCreate.setAttribute('type', 'button');
+            nextQEl.appendChild(nextCreate);
+            var nextEl = document.querySelector('.next');
+            nextEl.addEventListener("click", function() {
+                firstButton.remove();
+                secondButton.remove();
+                thirdButton.remove();
+                fourthButton.remove();
+                nextEl.remove();
+                correctEl.textContent = "";
+                questionPopUp();
+            })
+        } else {
+            // ifIncorrect();
+            correctEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
+            firstButton.setAttribute('disabled','disabled');
+            secondButton.setAttribute('disabled','disabled');
+            thirdButton.setAttribute('disabled','disabled');
+            fourthButton.setAttribute('disabled','disabled');
+
+            reduceTimer = true;
+            console.log("Reduce time? " + reduceTimer);
+
+            var nextCreate = document.createElement('button');
+            nextCreate.className = "next";
+            nextCreate.textContent = "Next Question";
+            nextCreate.setAttribute('type', 'button');
+            nextQEl.appendChild(nextCreate);
+            var nextEl = document.querySelector('.next');
+            nextEl.addEventListener("click", function() {
+                firstButton.remove();
+                secondButton.remove();
+                thirdButton.remove();
+                fourthButton.remove();
+                nextEl.remove();
+                correctEl.textContent = "";
+                questionPopUp();
+            })
+        }
+    }, true);
+
+
+    // button1El.textContent = currentChoice1;
+    // button1El.setAttribute("class", "visible");
+
+    // button2El.textContent = currentChoice2;
+    // button2El.setAttribute("class", "visible");
+
+    // button3El.textContent = currentChoice3;
+    // button3El.setAttribute("class", "visible");
+
+    // button4El.textContent = currentChoice4;
+    // button4El.setAttribute("class", "visible");
 
     index += 1;
     // counter --;
@@ -232,37 +484,43 @@ function questionPopUp() {
 }
 
 
-function ifCorrect() {
-    answerEl.textContent = "Correct!";
+
+// function ifCorrect() {
+    // answerEl.textContent = "Correct!";
+    // reduceTimer = false;
+    // score += 1;
+    // console.log(score);
+    // if(index < 5) {
+    //     nextBtn.setAttribute("class", "visible");
+    //     nextBtn.addEventListener("click", questionPopUps);
+    // } else {
+    //     finishBtn.setAttribute("class", "visible");
+    //     finishBtn.addEventListener("click", endOfQuiz);
+    //     finishQuiz = true;
+    // }
+
+
     // removeEventListeners();
-    // button1El.setAttribute('disabled','disabled');
-    // button2El.setAttribute('disabled','disabled');
-    // button3El.setAttribute('disabled','disabled');
-    // button4El.setAttribute('disabled','disabled');
-    reduceTimer = false;
-    score += 1;
-    console.log(score);
+    // firstButton.setAttribute('disabled','disabled');
+    // secondButton.setAttribute('disabled','disabled');
+    // thirdButton.setAttribute('disabled','disabled');
+    // fourthButton.setAttribute('disabled','disabled');
+    
    
     // calculateScore();
     // questionPopUps();
-    if(index < 5) {
-        nextBtn.setAttribute("class", "visible");
-        nextBtn.addEventListener("click", questionPopUps);
+    
         // increaseScore = true;
         // score += 1;
         // console.log(score);
-    } else {
-        finishBtn.setAttribute("class", "visible");
-        finishBtn.addEventListener("click", endOfQuiz);
-        // increaseScore = true;
-        finishQuiz = true;
-        // score += 1;
-        // console.log(score);
-    }
-}
+    
+// }
 
-function ifIncorrect() {
-    answerEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
+// function ifIncorrect() {
+    // answerEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
+    
+    
+    
     // removeEventListeners();
     // button1El.setAttribute('disabled','disabled');
     // button2El.setAttribute('disabled','disabled');
@@ -276,101 +534,103 @@ function ifIncorrect() {
     // console.log(reduceTimer);
     // questionPopUps();
     // calculateScore();
-    if(index < 5) {
-        reduceTimer = true;
-        console.log(reduceTimer);
-        nextBtn.setAttribute("class", "visible");
-        nextBtn.addEventListener("click", questionPopUps, true);
-    } else {
-        finishBtn.setAttribute("class", "visible");
-        finishBtn.addEventListener("click", endOfQuiz);
-        finishQuiz = true;
-    }
 
-}
 
-function checkAnswer() {
-    // questionBankCopy.splice(index,1);
+
+//     if(index < 5) {
+//         reduceTimer = true;
+//         console.log(reduceTimer);
+//         nextBtn.setAttribute("class", "visible");
+//         nextBtn.addEventListener("click", questionPopUps, true);
+//     } else {
+//         finishBtn.setAttribute("class", "visible");
+//         finishBtn.addEventListener("click", endOfQuiz);
+//         finishQuiz = true;
+//     }
+
+// }
+
+// function checkAnswer() {
 
     // if (questionBankCopy.length === 0) {
     //     endOfQuiz();
     //     finishQuiz = true;
     // };
 
-    button1El.addEventListener("click", function() {
-        if(currentChoice1 === questionAswer) {
-            ifCorrect();
-        } else {
-            ifIncorrect();
-        }
-    }, true);
+    // button1El.addEventListener("click", function() {
+    //     if(currentChoice1 === questionAswer) {
+    //         ifCorrect();
+    //     } else {
+    //         ifIncorrect();
+    //     }
+    // }, true);
 
-    button2El.addEventListener("click", function() {
-        if(currentChoice2 === questionAswer) {
-            ifCorrect();
-        } else {
-            ifIncorrect();
-        }
-    }, true);
+    // button2El.addEventListener("click", function() {
+    //     if(currentChoice2 === questionAswer) {
+    //         ifCorrect();
+    //     } else {
+    //         ifIncorrect();
+    //     }
+    // }, true);
 
-    button3El.addEventListener("click", function() {
-        if(currentChoice3 === questionAswer) {
-            ifCorrect();
-        } else {
-            ifIncorrect();
-        }
-    }, true);
+    // button3El.addEventListener("click", function() {
+    //     if(currentChoice3 === questionAswer) {
+    //         ifCorrect();
+    //     } else {
+    //         ifIncorrect();
+    //     }
+    // }, true);
 
-    button4El.addEventListener("click", function() {
-        if(currentChoice4 === questionAswer) {
-            ifCorrect();
-        } else {
-            ifIncorrect();
-        }
-    }, true);
+    // button4El.addEventListener("click", function() {
+    //     if(currentChoice4 === questionAswer) {
+    //         ifCorrect();
+    //     } else {
+    //         ifIncorrect();
+    //     }
+    // }, true);
     
-    return reduceTimer, score;
+    // return reduceTimer, score;
     
-    
-
-}
-
-function removeEventListeners() {
-
-    button1El.removeEventListener("click", function() {
-        if(currentChoice1 === questionAswer) {
-            ifCorrect();
-        } else {
-            ifIncorrect();
-        }
-    }, false);
-
-    button2El.removeEventListener("click", function() {
-        if(currentChoice2 === questionAswer) {
-            ifCorrect();
-        } else {
-            ifIncorrect();
-        }
-    }, false);
-
-    button3El.removeEventListener("click", function() {
-        if(currentChoice3 === questionAswer) {
-            ifCorrect();
-        } else {
-            ifIncorrect();
-        }
-    }, false);
-
-    button4El.removeEventListener("click", function() {
-        if(currentChoice4 === questionAswer) {
-            ifCorrect();
-        } else {
-            ifIncorrect();
-        }
-    }, false);
     
 
-}
+// }
+
+// function removeEventListeners() {
+
+//     button1El.removeEventListener("click", function() {
+//         if(currentChoice1 === questionAswer) {
+//             ifCorrect();
+//         } else {
+//             ifIncorrect();
+//         }
+//     }, false);
+
+//     button2El.removeEventListener("click", function() {
+//         if(currentChoice2 === questionAswer) {
+//             ifCorrect();
+//         } else {
+//             ifIncorrect();
+//         }
+//     }, false);
+
+//     button3El.removeEventListener("click", function() {
+//         if(currentChoice3 === questionAswer) {
+//             ifCorrect();
+//         } else {
+//             ifIncorrect();
+//         }
+//     }, false);
+
+//     button4El.removeEventListener("click", function() {
+//         if(currentChoice4 === questionAswer) {
+//             ifCorrect();
+//         } else {
+//             ifIncorrect();
+//         }
+//     }, false);
+    
+
+// }
 
 // function calculateScore() {
 //     if (increaseScore === true) {
@@ -381,25 +641,24 @@ function removeEventListeners() {
 //     console.log(score);
 // }
 
-function endOfQuiz() {
-    questionEl.remove();
-    button1El.remove();
-    button2El.remove();
-    button3El.remove();
-    button4El.remove();
-    answerEl.remove();
-    nextBtn.remove();
-    finishBtn.remove();
+// function endOfQuiz() {
+//     questionEl.remove();
+//     button1El.remove();
+//     button2El.remove();
+//     button3El.remove();
+//     button4El.remove();
+//     answerEl.remove();
+//     nextBtn.remove();
+//     finishBtn.remove();
 
-    // finishBtn.setAttribute("class", "visible");
-    headingEl.setAttribute("class", "visible");
-    headingEl.textContent = "You finished!";
-    subContentEl.setAttribute("class", "visible");
-    subContentEl.textContent = "Your score is " + score;
+//     headingEl.setAttribute("class", "visible");
+//     headingEl.textContent = "You finished!";
+//     subContentEl.setAttribute("class", "visible");
+//     subContentEl.textContent = "Your score is " + score;
 
 
-    console.log("End of quiz!");
-}
+//     console.log("End of quiz!");
+// }
 
 function init() {
     shuffleArray();
