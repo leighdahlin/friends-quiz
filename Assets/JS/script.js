@@ -243,13 +243,16 @@ function ifCorrect() {
     if(index < 5) {
         nextBtn.setAttribute("class", "visible");
         nextBtn.addEventListener("click", questionPopUps);
-        increaseScore = true;
+        // increaseScore = true;
+        // score += 1;
+        // console.log(score);
     } else {
-        nextBtn.setAttribute("class", "visible");
-        nextBtn.textContent = "See your final score"
-        nextBtn.addEventListener("click", endOfQuiz);
-        increaseScore = true;
+        finishBtn.setAttribute("class", "visible");
+        finishBtn.addEventListener("click", endOfQuiz);
+        // increaseScore = true;
         finishQuiz = true;
+        // score += 1;
+        // console.log(score);
     }
 }
 
@@ -271,9 +274,8 @@ function ifIncorrect() {
         nextBtn.setAttribute("class", "visible");
         nextBtn.addEventListener("click", questionPopUps);
     } else {
-        nextBtn.setAttribute("class", "visible");
-        nextBtn.textContent = "See your final score"
-        nextBtn.addEventListener("click", endOfQuiz);
+        finishBtn.setAttribute("class", "visible");
+        finishBtn.addEventListener("click", endOfQuiz);
         endOfQuiz();
         finishQuiz = true;
     }
@@ -321,6 +323,7 @@ function checkAnswer() {
     });
     
     
+    
     return reduceTimer;
 
 }
@@ -362,14 +365,14 @@ function checkAnswer() {
 
 // }
 
-function calculateScore() {
-    if (increaseScore === true) {
-        score ++;
-        increaseScore === false;
-    }
-    console.log("This is the score:")
-    console.log(score);
-}
+// function calculateScore() {
+//     if (increaseScore === true) {
+//         score ++;
+//         increaseScore === false;
+//     }
+//     console.log("This is the score:")
+//     console.log(score);
+// }
 
 function endOfQuiz() {
     questionEl.remove();
@@ -379,8 +382,9 @@ function endOfQuiz() {
     button4El.remove();
     answerEl.remove();
     nextBtn.remove();
+    finishBtn.remove();
 
-    finishBtn.setAttribute("class", "visible");
+    // finishBtn.setAttribute("class", "visible");
     headingEl.setAttribute("class", "visible");
     headingEl.textContent = "You finished!";
 
