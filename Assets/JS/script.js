@@ -2,7 +2,7 @@ var secondsLeft = 101;
 var timeEl = document.querySelector("#time");
 var startButtonEl = document.querySelector(".start-button");
 var headingEl = document.querySelector("#main-content-head");
-var subContentEl = document.querySelector(".sub-content");
+var subContentEl = document.querySelector("#sub-content");
 var mainContentEl = document.querySelector(".main-content");
 var questionEl = document.querySelector("#question-head");
 var button1El = document.querySelector("#button1");
@@ -85,7 +85,7 @@ startButtonEl.addEventListener("click", questionPopUps);
 
 function removeIntroPage() {
     headingEl.setAttribute("class", "hidden");
-    subContentEl.remove();
+    subContentEl.setAttribute("class", "hidden");
     startButtonEl.remove();
 
 };
@@ -127,9 +127,11 @@ function timesUpMessage() {
     answerEl.remove();
     nextBtn.remove();
 
-    finishBtn.setAttribute("class", "visible");
     headingEl.setAttribute("class", "visible");
     headingEl.textContent = "Your time is up!";
+    subContentEl.setAttribute("class", "visible");
+    subContentEl.textContent = "Your score is " + score;
+
 
 }
 
@@ -178,7 +180,8 @@ function questionPopUp() {
     // event.stopPropagation();
 
     nextBtn.setAttribute("class", "hidden");
-    nextBtn.removeEventListener("click", questionPopUps, true);
+    nextBtn.removeEventListener("click", questionPopUps);
+    
 
     increaseScore = false;
     button1El.setAttribute.disabled = false;
@@ -237,7 +240,7 @@ function ifCorrect() {
     // button3El.setAttribute('disabled','disabled');
     // button4El.setAttribute('disabled','disabled');
     reduceTimer = false;
-    
+    console.log(reduceTimer);
     // calculateScore();
     // questionPopUps();
     if(index < 5) {
@@ -267,16 +270,17 @@ function ifIncorrect() {
     // button2El.setAttribute.disabled = true;
     // button3El.setAttribute.disabled = true;
     // button4El.setAttribute.disabled = true;
-    reduceTimer === true;
+    // reduceTimer === true;
+    // console.log(reduceTimer);
     // questionPopUps();
     // calculateScore();
     if(index < 5) {
+        reduceTimer = true;
         nextBtn.setAttribute("class", "visible");
         nextBtn.addEventListener("click", questionPopUps);
     } else {
         finishBtn.setAttribute("class", "visible");
         finishBtn.addEventListener("click", endOfQuiz);
-        endOfQuiz();
         finishQuiz = true;
     }
 
@@ -322,9 +326,9 @@ function checkAnswer() {
         }
     });
     
+    return reduceTimer, score;
     
     
-    return reduceTimer;
 
 }
 
@@ -387,6 +391,8 @@ function endOfQuiz() {
     // finishBtn.setAttribute("class", "visible");
     headingEl.setAttribute("class", "visible");
     headingEl.textContent = "You finished!";
+    subContentEl.setAttribute("class", "visible");
+    subContentEl.textContent = "Your score is " + score;
 
 
     console.log("End of quiz!");
