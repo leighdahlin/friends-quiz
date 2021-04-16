@@ -1,4 +1,4 @@
-var secondsLeft = 61;
+var secondsLeft = 101;
 var timeEl = document.querySelector("#time");
 var startButtonEl = document.querySelector(".start-button");
 var headingEl = document.querySelector("#main-content-head");
@@ -9,7 +9,9 @@ var button1El = document.querySelector("#button1");
 var button2El = document.querySelector("#button2");
 var button3El = document.querySelector("#button3");
 var button4El = document.querySelector("#button4");
+var nextBtn = document.querySelector('#next')
 var answerEl = document.querySelector("#answer");
+var index = 0;
 var reduceTimer = false;
 var score = 0;
 var finishQuiz = false;
@@ -71,20 +73,19 @@ var question5 = {
 
 
 var questionBank = [question1, question2, question3, question4, question5];
-var questionBankCopy = [];
-// var index = 0;
-// var currentQuestion = questionBank[index].question;
-// var currentChoice1 = questionBank[index].choice1;
-// var currentChoice2 = questionBank[index].choice2;
-// var currentChoice3 = questionBank[index].choice3;
-// var currentChoice4 = questionBank[index].choice4;
-// var questionAswer = questionBank[index].answer();
-
+var questionBankCopy = questionBank.slice();
 
 startButtonEl.addEventListener("click", removeIntroPage);
 startButtonEl.addEventListener("click", setTime);
 startButtonEl.addEventListener("click", questionPopUps);
+nextBtn.addEventListener("click", questionPopUps);
 
+function removeIntroPage() {
+    headingEl.setAttribute("class", "hidden");
+    subContentEl.remove();
+    startButtonEl.remove();
+
+};
 
 function setTime() {
 
@@ -113,21 +114,44 @@ var timerInterval = setInterval(function() {
 , 1000)
 };
 
+function timesUpMessage() {
+
+    questionEl.remove();
+    button1El.remove();
+    button2El.remove();
+    button3El.remove();
+    button4El.remove();
+    answerEl.remove();
+    nextBtn.remove();
+
+    headingEl.setAttribute("class", "visible");
+    headingEl.textContent = "Your time is up!";
+    var viewHighScore = document.createElement("p");
+    var textNode = document.createTextNode("View your high score");
+    viewHighScore.appendChild(textNode);
+    mainContentEl.appendChild(viewHighScore);
+
+}
+
 function questionPopUps() {
-    setTimeout(questionPopUp, 1000);
+    button1El.setAttribute.disabled = false;
+    button2El.setAttribute.disabled = false;
+    button3El.setAttribute.disabled = false;
+    button4El.setAttribute.disabled = false;
+    // setTimeout(questionPopUp, 1000);
+    questionPopUp();
     checkAnswer();
+    
+    // setTimeout(spliceAndCheck, 0500);
+
+    
 };
-
-
-function removeIntroPage() {
-    headingEl.setAttribute("class", "hidden");
-    subContentEl.remove();
-    startButtonEl.remove();
-};
-
 
 function questionPopUp() {
+    
+    nextBtn.setAttribute("class", "hidden")
 
+    increaseScore = false;
     button1El.setAttribute.disabled = false;
     button2El.setAttribute.disabled = false;
     button3El.setAttribute.disabled = false;
@@ -135,9 +159,8 @@ function questionPopUp() {
 
     answerEl.textContent = "";
 
-    questionBankCopy = questionBank;
-
-    console.log(questionBankCopy)
+    console.log("This is the length of the array before it's spliced:")
+    console.log(questionBankCopy.length);
 
     index = Math.floor(Math.random()*questionBankCopy.length);
 
@@ -162,44 +185,54 @@ function questionPopUp() {
     button4El.textContent = currentChoice4;
     button4El.setAttribute("class", "visible");
 
-    questionBankCopy.splice(index,1);
+    // questionBankCopy.splice(index,1);
 
-    console.log(questionBankCopy);
+    // console.log("This is the length of the array after it's spliced:")
+    // console.log(questionBankCopy.length);
+
+    
+}
+
+
+function ifCorrect() {
+    answerEl.textContent = "Correct!";
+    // button1El.setAttribute('disabled','disabled');
+    // button2El.setAttribute('disabled','disabled');
+    // button3El.setAttribute('disabled','disabled');
+    // button4El.setAttribute('disabled','disabled');
+    reduceTimer = false;
+    increaseScore = true;
+    calculateScore();
+    // questionPopUps();
+    nextBtn.setAttribute("class", "visible");
+}
+
+function ifIncorrect() {
+    answerEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
+    // button1El.setAttribute('disabled','disabled');
+    // button2El.setAttribute('disabled','disabled');
+    // button3El.setAttribute('disabled','disabled');
+    // button4El.setAttribute('disabled','disabled');
+    // button1El.setAttribute.disabled = true;
+    // button2El.setAttribute.disabled = true;
+    // button3El.setAttribute.disabled = true;
+    // button4El.setAttribute.disabled = true;
+    reduceTimer === true;
+    // questionPopUps();
+    calculateScore();
+    nextBtn.setAttribute("class", "visible");
+
+}
+
+function checkAnswer() {
+    questionBankCopy.splice(index,1);
 
     if (questionBankCopy.length === 0) {
         endOfQuiz();
         finishQuiz = true;
     };
-}
 
-function ifCorrect() {
-    answerEl.textContent = "Correct!";
-    button1El.setAttribute.disabled = true;
-    button2El.setAttribute.disabled = true;
-    button3El.setAttribute.disabled = true;
-    button4El.setAttribute.disabled = true;
-    reduceTimer = false;
-    increaseScore = true;
-    console.log(score);
-    questionPopUps();
-
-    return increaseScore;
-}
-
-function ifIncorrect() {
-    answerEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
-    button1El.setAttribute.disabled = true;
-    button2El.setAttribute.disabled = true;
-    button3El.setAttribute.disabled = true;
-    button4El.setAttribute.disabled = true;
-    reduceTimer = true;
-    questionPopUps();
-
-}
-
-function checkAnswer() {
     button1El.addEventListener("click", function() {
-        
         if(currentChoice1 === questionAswer) {
             ifCorrect();
         } else {
@@ -235,29 +268,26 @@ function checkAnswer() {
 
 }
 
+// function spliceAndCheck() {
+//     questionBankCopy.splice(index,1);
+
+//     console.log("This is the length of the array after it's spliced:")
+//     console.log(questionBankCopy.length);
+
+//     if (questionBankCopy.length === 0) {
+//         endOfQuiz();
+//         finishQuiz = true;
+//     };
+
+// }
+
 function calculateScore() {
     if (increaseScore === true) {
         score ++;
+        increaseScore === false;
     }
+    console.log("This is the score:")
     console.log(score);
-}
-
-function timesUpMessage() {
-
-    questionEl.remove();
-    button1El.remove();
-    button2El.remove();
-    button3El.remove();
-    button4El.remove();
-    answerEl.remove();
-
-    headingEl.setAttribute("class", "visible");
-    headingEl.textContent = "Your time is up!";
-    var viewHighScore = document.createElement("p");
-    var textNode = document.createTextNode("View your high score");
-    viewHighScore.appendChild(textNode);
-    mainContentEl.appendChild(viewHighScore);
-
 }
 
 function endOfQuiz() {
@@ -267,6 +297,7 @@ function endOfQuiz() {
     button3El.remove();
     button4El.remove();
     answerEl.remove();
+    nextBtn.remove();
 
     console.log("End of quiz!");
 }
