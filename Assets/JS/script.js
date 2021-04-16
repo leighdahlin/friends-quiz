@@ -180,7 +180,7 @@ function questionPopUp() {
     // event.stopPropagation();
 
     nextBtn.setAttribute("class", "hidden");
-    nextBtn.removeEventListener("click", questionPopUps);
+    nextBtn.removeEventListener("click", questionPopUps, false);
     
 
     increaseScore = false;
@@ -240,7 +240,9 @@ function ifCorrect() {
     // button3El.setAttribute('disabled','disabled');
     // button4El.setAttribute('disabled','disabled');
     reduceTimer = false;
-    console.log(reduceTimer);
+    score += 1;
+    console.log(score);
+   
     // calculateScore();
     // questionPopUps();
     if(index < 5) {
@@ -276,8 +278,9 @@ function ifIncorrect() {
     // calculateScore();
     if(index < 5) {
         reduceTimer = true;
+        console.log(reduceTimer);
         nextBtn.setAttribute("class", "visible");
-        nextBtn.addEventListener("click", questionPopUps);
+        nextBtn.addEventListener("click", questionPopUps, true);
     } else {
         finishBtn.setAttribute("class", "visible");
         finishBtn.addEventListener("click", endOfQuiz);
@@ -300,7 +303,7 @@ function checkAnswer() {
         } else {
             ifIncorrect();
         }
-    });
+    }, true);
 
     button2El.addEventListener("click", function() {
         if(currentChoice2 === questionAswer) {
@@ -308,7 +311,7 @@ function checkAnswer() {
         } else {
             ifIncorrect();
         }
-    });
+    }, true);
 
     button3El.addEventListener("click", function() {
         if(currentChoice3 === questionAswer) {
@@ -316,7 +319,7 @@ function checkAnswer() {
         } else {
             ifIncorrect();
         }
-    });
+    }, true);
 
     button4El.addEventListener("click", function() {
         if(currentChoice4 === questionAswer) {
@@ -324,7 +327,7 @@ function checkAnswer() {
         } else {
             ifIncorrect();
         }
-    });
+    }, true);
     
     return reduceTimer, score;
     
@@ -332,42 +335,42 @@ function checkAnswer() {
 
 }
 
-// function removeEventListeners() {
+function removeEventListeners() {
 
-//     button1El.removeEventListener("click", function() {
-//         if(currentChoice1 === questionAswer) {
-//             ifCorrect();
-//         } else {
-//             ifIncorrect();
-//         }
-//     }, true);
+    button1El.removeEventListener("click", function() {
+        if(currentChoice1 === questionAswer) {
+            ifCorrect();
+        } else {
+            ifIncorrect();
+        }
+    }, false);
 
-//     button2El.removeEventListener("click", function() {
-//         if(currentChoice2 === questionAswer) {
-//             ifCorrect();
-//         } else {
-//             ifIncorrect();
-//         }
-//     }, true);
+    button2El.removeEventListener("click", function() {
+        if(currentChoice2 === questionAswer) {
+            ifCorrect();
+        } else {
+            ifIncorrect();
+        }
+    }, false);
 
-//     button3El.removeEventListener("click", function() {
-//         if(currentChoice3 === questionAswer) {
-//             ifCorrect();
-//         } else {
-//             ifIncorrect();
-//         }
-//     }, true);
+    button3El.removeEventListener("click", function() {
+        if(currentChoice3 === questionAswer) {
+            ifCorrect();
+        } else {
+            ifIncorrect();
+        }
+    }, false);
 
-//     button4El.removeEventListener("click", function() {
-//         if(currentChoice4 === questionAswer) {
-//             ifCorrect();
-//         } else {
-//             ifIncorrect();
-//         }
-//     }, true);
+    button4El.removeEventListener("click", function() {
+        if(currentChoice4 === questionAswer) {
+            ifCorrect();
+        } else {
+            ifIncorrect();
+        }
+    }, false);
     
 
-// }
+}
 
 // function calculateScore() {
 //     if (increaseScore === true) {
