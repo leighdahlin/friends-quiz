@@ -1,4 +1,4 @@
-var secondsLeft = 101;
+var secondsLeft = 20;
 var timeEl = document.querySelector("#time");
 var startButtonEl = document.querySelector(".start-button");
 var headingEl = document.querySelector("#main-content-head");
@@ -125,12 +125,12 @@ var timerInterval = setInterval(function() {
 function timesUpMessage() {
 
     questionEl.remove();
-    button1El.remove();
-    button2El.remove();
-    button3El.remove();
-    button4El.remove();
-    answerEl.remove();
-    nextBtn.remove();
+    // button1El.remove();
+    // button2El.remove();
+    // button3El.remove();
+    // button4El.remove();
+    // answerEl.remove();
+    // nextBtn.remove();
 
     headingEl.setAttribute("class", "visible");
     headingEl.textContent = "Your time is up!";
