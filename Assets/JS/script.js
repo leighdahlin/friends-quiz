@@ -1,4 +1,4 @@
-var secondsLeft = 20;
+var secondsLeft = 101;
 var timeEl = document.querySelector("#time");
 var startButtonEl = document.querySelector(".start-button");
 var headingEl = document.querySelector("#main-content-head");
@@ -125,6 +125,9 @@ var timerInterval = setInterval(function() {
 function timesUpMessage() {
 
     questionEl.remove();
+    buttonsEl.remove();
+    displayAnswerEl.remove();
+    nextQEl.remove();
     // button1El.remove();
     // button2El.remove();
     // button3El.remove();
@@ -232,6 +235,8 @@ function questionPopUp() {
     var correctEl = document.querySelector('.correct-incorrect');
 
 
+
+
     firstButton.addEventListener("click", function() {
         if(currentChoice1 === questionAswer) {
             // ifCorrect();
@@ -244,21 +249,41 @@ function questionPopUp() {
             score += 1;
             console.log("This is the current score: " + score);
 
-            var nextCreate = document.createElement('button');
-            nextCreate.className = "next";
-            nextCreate.textContent = "Next Question";
-            nextCreate.setAttribute('type', 'button');
-            nextQEl.appendChild(nextCreate);
-            var nextEl = document.querySelector('.next');
-            nextEl.addEventListener("click", function() {
-                firstButton.remove();
-                secondButton.remove();
-                thirdButton.remove();
-                fourthButton.remove();
-                nextEl.remove();
-                correctEl.textContent = "";
-                questionPopUp();
-            })
+            if (index < 5) {
+                var nextCreate = document.createElement('button');
+                nextCreate.className = "next";
+                nextCreate.textContent = "Next Question";
+                nextCreate.setAttribute('type', 'button');
+                nextQEl.appendChild(nextCreate);
+                var nextEl = document.querySelector('.next');
+                nextEl.addEventListener("click", function() {
+                    firstButton.remove();
+                    secondButton.remove();
+                    thirdButton.remove();
+                    fourthButton.remove();
+                    nextEl.remove();
+                    correctEl.textContent = "";
+                    questionPopUp();
+                })
+            } else {
+                var submitCreate = document.createElement('button');
+                submitCreate.className = "submit";
+                submitCreate.textContent = "See your results!";
+                submitCreate.setAttribute('type', 'button');
+                nextQEl.appendChild(submitCreate);
+                var submitEl = document.querySelector('.submit');
+                finishQuiz = true;
+                submitEl.addEventListener("click", function() {
+                    firstButton.remove();
+                    secondButton.remove();
+                    thirdButton.remove();
+                    fourthButton.remove();
+                    submitEl.remove();
+                    correctEl.textContent = "";
+                    endOfQuiz();
+                
+                })
+            }
 
         } else {
             // ifIncorrect();
@@ -271,21 +296,41 @@ function questionPopUp() {
             reduceTimer = true;
             console.log("Reduce time? " + reduceTimer);
 
-            var nextCreate = document.createElement('button');
-            nextCreate.className = "next";
-            nextCreate.textContent = "Next Question";
-            nextCreate.setAttribute('type', 'button');
-            nextQEl.appendChild(nextCreate);
-            var nextEl = document.querySelector('.next');
-            nextEl.addEventListener("click", function() {
-                firstButton.remove();
-                secondButton.remove();
-                thirdButton.remove();
-                fourthButton.remove();
-                nextEl.remove();
-                correctEl.textContent = "";
-                questionPopUp();
-            })
+            if (index < 5) {
+                var nextCreate = document.createElement('button');
+                nextCreate.className = "next";
+                nextCreate.textContent = "Next Question";
+                nextCreate.setAttribute('type', 'button');
+                nextQEl.appendChild(nextCreate);
+                var nextEl = document.querySelector('.next');
+                nextEl.addEventListener("click", function() {
+                    firstButton.remove();
+                    secondButton.remove();
+                    thirdButton.remove();
+                    fourthButton.remove();
+                    nextEl.remove();
+                    correctEl.textContent = "";
+                    questionPopUp();
+                })
+            } else {
+                var submitCreate = document.createElement('button');
+                submitCreate.className = "submit";
+                submitCreate.textContent = "See your results!";
+                submitCreate.setAttribute('type', 'button');
+                nextQEl.appendChild(submitCreate);
+                var submitEl = document.querySelector('.submit');
+                finishQuiz = true;
+                submitEl.addEventListener("click", function() {
+                    firstButton.remove();
+                    secondButton.remove();
+                    thirdButton.remove();
+                    fourthButton.remove();
+                    submitEl.remove();
+                    correctEl.textContent = "";
+                    endOfQuiz();
+                
+                })
+            }
         }
     }, true);
 
@@ -301,21 +346,41 @@ function questionPopUp() {
             score += 1;
             console.log("This is the current score: " + score);
 
-            var nextCreate = document.createElement('button');
-            nextCreate.className = "next";
-            nextCreate.textContent = "Next Question";
-            nextCreate.setAttribute('type', 'button');
-            nextQEl.appendChild(nextCreate);
-            var nextEl = document.querySelector('.next');
-            nextEl.addEventListener("click", function() {
-                firstButton.remove();
-                secondButton.remove();
-                thirdButton.remove();
-                fourthButton.remove();
-                nextEl.remove();
-                correctEl.textContent = "";
-                questionPopUp();
-            })
+            if (index < 5) {
+                var nextCreate = document.createElement('button');
+                nextCreate.className = "next";
+                nextCreate.textContent = "Next Question";
+                nextCreate.setAttribute('type', 'button');
+                nextQEl.appendChild(nextCreate);
+                var nextEl = document.querySelector('.next');
+                nextEl.addEventListener("click", function() {
+                    firstButton.remove();
+                    secondButton.remove();
+                    thirdButton.remove();
+                    fourthButton.remove();
+                    nextEl.remove();
+                    correctEl.textContent = "";
+                    questionPopUp();
+                })
+            } else {
+                var submitCreate = document.createElement('button');
+                submitCreate.className = "submit";
+                submitCreate.textContent = "See your results!";
+                submitCreate.setAttribute('type', 'button');
+                nextQEl.appendChild(submitCreate);
+                var submitEl = document.querySelector('.submit');
+                finishQuiz = true;
+                submitEl.addEventListener("click", function() {
+                    firstButton.remove();
+                    secondButton.remove();
+                    thirdButton.remove();
+                    fourthButton.remove();
+                    submitEl.remove();
+                    correctEl.textContent = "";
+                    endOfQuiz();
+                
+                })
+            }
         } else {
             // ifIncorrect();
             correctEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
@@ -327,21 +392,41 @@ function questionPopUp() {
             reduceTimer = true;
             console.log("Reduce time? " + reduceTimer);
 
-            var nextCreate = document.createElement('button');
-            nextCreate.className = "next";
-            nextCreate.textContent = "Next Question";
-            nextCreate.setAttribute('type', 'button');
-            nextQEl.appendChild(nextCreate);
-            var nextEl = document.querySelector('.next');
-            nextEl.addEventListener("click", function() {
-                firstButton.remove();
-                secondButton.remove();
-                thirdButton.remove();
-                fourthButton.remove();
-                nextEl.remove();
-                correctEl.textContent = "";
-                questionPopUp();
-            })
+            if (index < 5) {
+                var nextCreate = document.createElement('button');
+                nextCreate.className = "next";
+                nextCreate.textContent = "Next Question";
+                nextCreate.setAttribute('type', 'button');
+                nextQEl.appendChild(nextCreate);
+                var nextEl = document.querySelector('.next');
+                nextEl.addEventListener("click", function() {
+                    firstButton.remove();
+                    secondButton.remove();
+                    thirdButton.remove();
+                    fourthButton.remove();
+                    nextEl.remove();
+                    correctEl.textContent = "";
+                    questionPopUp();
+                })
+            } else {
+                var submitCreate = document.createElement('button');
+                submitCreate.className = "submit";
+                submitCreate.textContent = "See your results!";
+                submitCreate.setAttribute('type', 'button');
+                nextQEl.appendChild(submitCreate);
+                var submitEl = document.querySelector('.submit');
+                finishQuiz = true;
+                submitEl.addEventListener("click", function() {
+                    firstButton.remove();
+                    secondButton.remove();
+                    thirdButton.remove();
+                    fourthButton.remove();
+                    submitEl.remove();
+                    correctEl.textContent = "";
+                    endOfQuiz();
+                
+                })
+            }
         }
     }, true);
 
@@ -357,21 +442,41 @@ function questionPopUp() {
             score += 1;
             console.log("This is the current score: " + score);
 
-            var nextCreate = document.createElement('button');
-            nextCreate.className = "next";
-            nextCreate.textContent = "Next Question";
-            nextCreate.setAttribute('type', 'button');
-            nextQEl.appendChild(nextCreate);
-            var nextEl = document.querySelector('.next');
-            nextEl.addEventListener("click", function() {
-                firstButton.remove();
-                secondButton.remove();
-                thirdButton.remove();
-                fourthButton.remove();
-                nextEl.remove();
-                correctEl.textContent = "";
-                questionPopUp();
-            })
+            if (index < 5) {
+                var nextCreate = document.createElement('button');
+                nextCreate.className = "next";
+                nextCreate.textContent = "Next Question";
+                nextCreate.setAttribute('type', 'button');
+                nextQEl.appendChild(nextCreate);
+                var nextEl = document.querySelector('.next');
+                nextEl.addEventListener("click", function() {
+                    firstButton.remove();
+                    secondButton.remove();
+                    thirdButton.remove();
+                    fourthButton.remove();
+                    nextEl.remove();
+                    correctEl.textContent = "";
+                    questionPopUp();
+                })
+            } else {
+                var submitCreate = document.createElement('button');
+                submitCreate.className = "submit";
+                submitCreate.textContent = "See your results!";
+                submitCreate.setAttribute('type', 'button');
+                nextQEl.appendChild(submitCreate);
+                var submitEl = document.querySelector('.submit');
+                finishQuiz = true;
+                submitEl.addEventListener("click", function() {
+                    firstButton.remove();
+                    secondButton.remove();
+                    thirdButton.remove();
+                    fourthButton.remove();
+                    submitEl.remove();
+                    correctEl.textContent = "";
+                    endOfQuiz();
+                
+                })
+            }
         } else {
             // ifIncorrect();
             correctEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
@@ -383,21 +488,41 @@ function questionPopUp() {
             reduceTimer = true;
             console.log("Reduce time? " + reduceTimer);
 
-            var nextCreate = document.createElement('button');
-            nextCreate.className = "next";
-            nextCreate.textContent = "Next Question";
-            nextCreate.setAttribute('type', 'button');
-            nextQEl.appendChild(nextCreate);
-            var nextEl = document.querySelector('.next');
-            nextEl.addEventListener("click", function() {
-                firstButton.remove();
-                secondButton.remove();
-                thirdButton.remove();
-                fourthButton.remove();
-                nextEl.remove();
-                correctEl.textContent = "";
-                questionPopUp();
-            })
+            if (index < 5) {
+                var nextCreate = document.createElement('button');
+                nextCreate.className = "next";
+                nextCreate.textContent = "Next Question";
+                nextCreate.setAttribute('type', 'button');
+                nextQEl.appendChild(nextCreate);
+                var nextEl = document.querySelector('.next');
+                nextEl.addEventListener("click", function() {
+                    firstButton.remove();
+                    secondButton.remove();
+                    thirdButton.remove();
+                    fourthButton.remove();
+                    nextEl.remove();
+                    correctEl.textContent = "";
+                    questionPopUp();
+                })
+            } else {
+                var submitCreate = document.createElement('button');
+                submitCreate.className = "submit";
+                submitCreate.textContent = "See your results!";
+                submitCreate.setAttribute('type', 'button');
+                nextQEl.appendChild(submitCreate);
+                var submitEl = document.querySelector('.submit');
+                finishQuiz = true;
+                submitEl.addEventListener("click", function() {
+                    firstButton.remove();
+                    secondButton.remove();
+                    thirdButton.remove();
+                    fourthButton.remove();
+                    submitEl.remove();
+                    correctEl.textContent = "";
+                    endOfQuiz();
+                
+                })
+            }
         }
     }, true);
 
@@ -413,21 +538,42 @@ function questionPopUp() {
             score += 1;
             console.log("This is the current score: " + score);
 
-            var nextCreate = document.createElement('button');
-            nextCreate.className = "next";
-            nextCreate.textContent = "Next Question";
-            nextCreate.setAttribute('type', 'button');
-            nextQEl.appendChild(nextCreate);
-            var nextEl = document.querySelector('.next');
-            nextEl.addEventListener("click", function() {
-                firstButton.remove();
-                secondButton.remove();
-                thirdButton.remove();
-                fourthButton.remove();
-                nextEl.remove();
-                correctEl.textContent = "";
-                questionPopUp();
-            })
+            if (index < 5) {
+                var nextCreate = document.createElement('button');
+                nextCreate.className = "next";
+                nextCreate.textContent = "Next Question";
+                nextCreate.setAttribute('type', 'button');
+                nextQEl.appendChild(nextCreate);
+                var nextEl = document.querySelector('.next');
+                nextEl.addEventListener("click", function() {
+                    firstButton.remove();
+                    secondButton.remove();
+                    thirdButton.remove();
+                    fourthButton.remove();
+                    nextEl.remove();
+                    correctEl.textContent = "";
+                    questionPopUp();
+                })
+            } else {
+                var submitCreate = document.createElement('button');
+                submitCreate.className = "submit";
+                submitCreate.textContent = "See your results!";
+                submitCreate.setAttribute('type', 'button');
+                nextQEl.appendChild(submitCreate);
+                var submitEl = document.querySelector('.submit');
+                finishQuiz = true;
+                submitEl.addEventListener("click", function() {
+                    firstButton.remove();
+                    secondButton.remove();
+                    thirdButton.remove();
+                    fourthButton.remove();
+                    submitEl.remove();
+                    correctEl.textContent = "";
+                    endOfQuiz();
+                
+                })
+            }
+            
         } else {
             // ifIncorrect();
             correctEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
@@ -439,23 +585,46 @@ function questionPopUp() {
             reduceTimer = true;
             console.log("Reduce time? " + reduceTimer);
 
-            var nextCreate = document.createElement('button');
-            nextCreate.className = "next";
-            nextCreate.textContent = "Next Question";
-            nextCreate.setAttribute('type', 'button');
-            nextQEl.appendChild(nextCreate);
-            var nextEl = document.querySelector('.next');
-            nextEl.addEventListener("click", function() {
-                firstButton.remove();
-                secondButton.remove();
-                thirdButton.remove();
-                fourthButton.remove();
-                nextEl.remove();
-                correctEl.textContent = "";
-                questionPopUp();
-            })
+            if (index < 5) {
+                var nextCreate = document.createElement('button');
+                nextCreate.className = "next";
+                nextCreate.textContent = "Next Question";
+                nextCreate.setAttribute('type', 'button');
+                nextQEl.appendChild(nextCreate);
+                var nextEl = document.querySelector('.next');
+                nextEl.addEventListener("click", function() {
+                    firstButton.remove();
+                    secondButton.remove();
+                    thirdButton.remove();
+                    fourthButton.remove();
+                    nextEl.remove();
+                    correctEl.textContent = "";
+                    questionPopUp();
+                })
+            } else {
+                var submitCreate = document.createElement('button');
+                submitCreate.className = "submit";
+                submitCreate.textContent = "See your results!";
+                submitCreate.setAttribute('type', 'button');
+                nextQEl.appendChild(submitCreate);
+                var submitEl = document.querySelector('.submit');
+                finishQuiz = true;
+                submitEl.addEventListener("click", function() {
+                    firstButton.remove();
+                    secondButton.remove();
+                    thirdButton.remove();
+                    fourthButton.remove();
+                    submitEl.remove();
+                    correctEl.textContent = "";
+                    endOfQuiz();
+                
+                })
+            }
         }
     }, true);
+
+    index += 1;
+    
 
 
     // button1El.textContent = currentChoice1;
@@ -470,7 +639,6 @@ function questionPopUp() {
     // button4El.textContent = currentChoice4;
     // button4El.setAttribute("class", "visible");
 
-    index += 1;
     // counter --;
 
     // console.log("counter: " + counter);
@@ -641,24 +809,24 @@ function questionPopUp() {
 //     console.log(score);
 // }
 
-// function endOfQuiz() {
-//     questionEl.remove();
-//     button1El.remove();
-//     button2El.remove();
-//     button3El.remove();
-//     button4El.remove();
-//     answerEl.remove();
-//     nextBtn.remove();
-//     finishBtn.remove();
+function endOfQuiz() {
+    questionEl.remove();
+    // button1El.remove();
+    // button2El.remove();
+    // button3El.remove();
+    // button4El.remove();
+    // answerEl.remove();
+    // nextBtn.remove();
+    // finishBtn.remove();
 
-//     headingEl.setAttribute("class", "visible");
-//     headingEl.textContent = "You finished!";
-//     subContentEl.setAttribute("class", "visible");
-//     subContentEl.textContent = "Your score is " + score;
+    headingEl.setAttribute("class", "visible");
+    headingEl.textContent = "You finished!";
+    subContentEl.setAttribute("class", "visible");
+    subContentEl.textContent = "Your score is " + score;
 
 
-//     console.log("End of quiz!");
-// }
+    console.log("End of quiz!");
+}
 
 function init() {
     shuffleArray();
