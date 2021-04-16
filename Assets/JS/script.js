@@ -810,6 +810,7 @@ function questionPopUp() {
 // }
 
 function endOfQuiz() {
+    // event.preventDefault();
     questionEl.remove();
     // button1El.remove();
     // button2El.remove();
@@ -823,6 +824,24 @@ function endOfQuiz() {
     headingEl.textContent = "You finished!";
     subContentEl.setAttribute("class", "visible");
     subContentEl.textContent = "Your score is " + score;
+
+    var userInput = document.createElement('input');
+    userInput.className = "initials";
+    userInput.textContent = "See your results!";
+    userInput.setAttribute('type', 'text');
+    userInput.setAttribute('style', 'display:block; margin: 5%; width: 100%;');
+    userInput.setAttribute('maxlength', '3');
+    userInput.setAttribute('placeholder', 'Enter your initial here');
+
+    var submitScore = document.createElement('button');
+    submitScore.textContent = "Add to Score Board";
+    submitScore.setAttribute('type', 'button');
+    submitScore.className = "submit-score";
+    
+
+    subContentEl.appendChild(userInput);
+    subContentEl.appendChild(submitScore);
+    var submitEl = document.querySelector('.initials');
 
 
     console.log("End of quiz!");
