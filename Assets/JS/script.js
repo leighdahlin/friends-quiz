@@ -86,10 +86,11 @@ var question5 = {
 var questionBank = [question1, question2, question3, question4, question5];
 // var questionBankCopy = questionBank.slice();
 // var counter = questionBank.length + 1;
-
+if(document.querySelector('.start-button')) {  
 startButtonEl.addEventListener("click", removeIntroPage);
 startButtonEl.addEventListener("click", setTime);
 startButtonEl.addEventListener("click", questionPopUp);
+}
 // nextBtn.addEventListener("click", questionPopUps);
 
 function removeIntroPage() {
@@ -838,52 +839,54 @@ function endOfQuiz() {
     userInput.setAttribute('placeholder', 'Enter your initial here');
 
     var anchorScorePage = document.createElement('a');
-    anchorScorePage.setAttribute('href', 'Assets/high-scores.html');
+    // anchorScorePage.setAttribute('href', 'Assets/high-scores.html');
     var submitScore = document.createElement('button');
     submitScore.textContent = "Add to Score Board";
     // submitScore.setAttribute('type', 'button');
-    submitScore.className = "submit-score";
+    // submitScore.setAttribute('id', 'score-submit');
+    submitScore.className = "score-submit";
+
     anchorScorePage.appendChild(submitScore);
-    var addScore = document.querySelector(".submit-score");
-    
 
     subContentEl.appendChild(userInput);
     subContentEl.appendChild(anchorScorePage);
+
+    window.onload=function (){
+        var scoreButton = document.querySelector(".score-submit");
+
+        scoreButton.addEventListener("click", function(){
+            // event.preventDefault();
+
+            console.log("You clicked the sumbit button!")
     
-
-    addScore.addEventListener("click", function(event){
-        event.preventDefault();
-
-        var submitEl = document.querySelector('.initials').value;
-        if(submitEl = "") {
-            alert("Please enter your initals.")
-        }  
-
-        localStorage.setItem("userScore", score);
-        localStorage.setItem("userInitials", submitEl);
-
-        var newRow = document.createElement('tr');
-        var initialsRow = document.createElement('td');
-        initialsRow.textContent = submitEl;
-        var scoreRow = document.createElement('td');
-        scoreRow.textContent = score;
-        newRow.appendChild(initialsRow);
-        newRow.appendChild(scoreRow);
-
-        scoreTable.appendChild(newRow);
-
-
-    });
-
+        //     var submitEl = document.querySelector('.initials').value;
+        //     if(submitEl = "") {
+        //         alert("Please enter your initals.")
+        //     }  
     
-
-
+        //     localStorage.setItem("userScore", score);
+        //     localStorage.setItem("userInitials", submitEl);
+    
+        //     var newRow = document.createElement('tr');
+        //     var initialsRow = document.createElement('td');
+        //     initialsRow.textContent = submitEl;
+        //     var scoreRow = document.createElement('td');
+        //     scoreRow.textContent = score;
+        //     newRow.appendChild(initialsRow);
+        //     newRow.appendChild(scoreRow);
+    
+        //     scoreTable.appendChild(newRow);
+    
+    
+        });
+      };
+    
     console.log("End of quiz!");
 }
+
 
 function init() {
     shuffleArray();
 }
 
 init();
-
