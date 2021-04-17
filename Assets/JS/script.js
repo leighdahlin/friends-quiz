@@ -841,14 +841,14 @@ function endOfQuiz() {
     anchorScorePage.setAttribute('href', 'Assets/high-scores.html');
     var submitScore = document.createElement('button');
     submitScore.textContent = "Add to Score Board";
-    submitScore.setAttribute('type', 'button');
+    // submitScore.setAttribute('type', 'button');
     submitScore.className = "submit-score";
     anchorScorePage.appendChild(submitScore);
     var addScore = document.querySelector(".submit-score");
     
 
     subContentEl.appendChild(userInput);
-    subContentEl.appendChild(submitScore);
+    subContentEl.appendChild(anchorScorePage);
     
 
     addScore.addEventListener("click", function(event){
