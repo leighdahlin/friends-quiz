@@ -7,8 +7,12 @@ var mainContentEl = document.querySelector(".main-content");
 var questionEl = document.querySelector("#question-head");
 
 var buttonsEl = document.querySelector(".button-div");
-var displayAnswerEl = document.querySelector(".answer")
-var nextQEl = document.querySelector(".next-div")
+var displayAnswerEl = document.querySelector(".answer");
+var nextQEl = document.querySelector(".next-div");
+// var userScore = localStorage.getItem("user-score");
+// var userInitials = localStorage.getItem("initials");
+
+var scoreTable = document.querySelector(".score-table");
 
 // var button1El = document.querySelector("#button1");
 // var button2El = document.querySelector("#button2");
@@ -833,15 +837,45 @@ function endOfQuiz() {
     userInput.setAttribute('maxlength', '3');
     userInput.setAttribute('placeholder', 'Enter your initial here');
 
+    var anchorScorePage = document.createElement('a');
+    anchorScorePage.setAttribute('href', 'Assets/high-scores.html');
     var submitScore = document.createElement('button');
     submitScore.textContent = "Add to Score Board";
     submitScore.setAttribute('type', 'button');
     submitScore.className = "submit-score";
+    anchorScorePage.appendChild(submitScore);
+    var addScore = document.querySelector(".submit-score");
     
 
     subContentEl.appendChild(userInput);
     subContentEl.appendChild(submitScore);
-    var submitEl = document.querySelector('.initials');
+    
+
+    addScore.addEventListener("click", function(event){
+        event.preventDefault();
+
+        var submitEl = document.querySelector('.initials').value;
+        if(submitEl = "") {
+            alert("Please enter your initals.")
+        }  
+
+        localStorage.setItem("userScore", score);
+        localStorage.setItem("userInitials", submitEl);
+
+        var newRow = document.createElement('tr');
+        var initialsRow = document.createElement('td');
+        initialsRow.textContent = submitEl;
+        var scoreRow = document.createElement('td');
+        scoreRow.textContent = score;
+        newRow.appendChild(initialsRow);
+        newRow.appendChild(scoreRow);
+
+        scoreTable.appendChild(newRow);
+
+
+    });
+
+    
 
 
     console.log("End of quiz!");
