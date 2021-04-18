@@ -12,7 +12,7 @@ var nextQEl = document.querySelector(".next-div");
 // var userScore = localStorage.getItem("user-score");
 // var userInitials = localStorage.getItem("initials");
 
-var scoreTable = document.querySelector(".score-table");
+var scoreTable = document.querySelector(".table-body");
 
 // var button1El = document.querySelector("#button1");
 // var button2El = document.querySelector("#button2");
@@ -838,18 +838,13 @@ function endOfQuiz() {
     userInput.setAttribute('maxlength', '3');
     userInput.setAttribute('placeholder', 'Enter your initial here');
 
-    var anchorScorePage = document.createElement('a');
-    // anchorScorePage.setAttribute('href', 'Assets/high-scores.html');
     var submitScore = document.createElement('button');
     submitScore.textContent = "Add to Score Board";
     submitScore.setAttribute('type', 'button');
-    // submitScore.setAttribute('id', 'score-submit');
     submitScore.className = "score-submit";
 
-    anchorScorePage.appendChild(submitScore);
-
     subContentEl.appendChild(userInput);
-    subContentEl.appendChild(anchorScorePage);
+    subContentEl.appendChild(submitScore);
 
         var scoreButton = document.querySelector(".score-submit");
 
@@ -865,27 +860,81 @@ function endOfQuiz() {
             if(submitEl === "") {
                 alert("Please enter your initals.");
             }  else {
-                window.location.href = "Assets/high-scores.html";
+                // window.location.href = "Assets/high-scores.html";
                 localStorage.setItem("userScore", score);
                 localStorage.setItem("userInitials", submitEl);
+                openHighScores();
+                // writeScoreData();
             }
-    
-            
-            var newRow = document.createElement('tr');
-            var initialsRow = document.createElement('td');
-            initialsRow.textContent = submitEl;
-            var scoreRow = document.createElement('td');
-            scoreRow.textContent = score;
-            newRow.appendChild(initialsRow);
-            newRow.appendChild(scoreRow);
-    
-            scoreTable.appendChild(newRow);
-    
     
         });
     
     console.log("End of quiz!");
 }
+
+// function writeScoreData() {
+    // var submitEl = localStorage.getItem("userInitials");
+    // var score = localStorage.getItem("userScore");
+
+    // var newRow = document.createElement('tr');
+    // var initialsRow = document.createElement('td');
+    // initialsRow.textContent = submitEl;
+
+    // console.log("Log initials row:" + initialsRow);
+
+    // var scoreRow = document.createElement('td');
+    // scoreRow.textContent = score;
+
+    // console.log("Log score row:" +scoreRow);
+
+    // newRow.appendChild(initialsRow);
+    // newRow.appendChild(scoreRow);
+    
+//     scoreTable.appendChild(newRow);
+    
+// }
+
+function openHighScores() {
+    var submitEl = localStorage.getItem("userInitials");
+    var score = localStorage.getItem("userScore");
+
+    headingEl.textContent = "High Scores";
+    subContentEl.setAttribute("class", "hidden");
+
+    var creatTable = document.createElement('table');
+    var creatTableHeader = document.createElement('thead');
+    var creatTableHeaderData1 = document.createElement('td');
+    var creatTableHeaderData2 = document.createElement('td');
+    creatTableHeaderData1.textContent = "User Initials";
+    creatTableHeader.appendChild(creatTableHeaderData1);
+    creatTableHeaderData2.textContent = "Score";
+    creatTableHeader.appendChild(creatTableHeaderData2);
+    creatTable.appendChild(creatTableHeader);
+
+    var tableBody = document.createElement('tbody')
+    var newRow = document.createElement('tr');
+    var initialsRow = document.createElement('td');
+    initialsRow.textContent = submitEl;
+
+    console.log("Log initials row:" + initialsRow);
+
+    var scoreRow = document.createElement('td');
+    scoreRow.textContent = score;
+
+    console.log("Log score row:" +scoreRow);
+
+    newRow.appendChild(initialsRow);
+    newRow.appendChild(scoreRow);
+
+    tableBody.appendChild(newRow);
+
+
+    creatTable.appendChild(tableBody);
+    mainContentEl.appendChild(creatTable);
+    
+
+}
+
 
 
 function init() {
