@@ -842,7 +842,7 @@ function endOfQuiz() {
     // anchorScorePage.setAttribute('href', 'Assets/high-scores.html');
     var submitScore = document.createElement('button');
     submitScore.textContent = "Add to Score Board";
-    // submitScore.setAttribute('type', 'button');
+    submitScore.setAttribute('type', 'button');
     // submitScore.setAttribute('id', 'score-submit');
     submitScore.className = "score-submit";
 
@@ -851,35 +851,38 @@ function endOfQuiz() {
     subContentEl.appendChild(userInput);
     subContentEl.appendChild(anchorScorePage);
 
-    window.onload=function (){
         var scoreButton = document.querySelector(".score-submit");
 
-        scoreButton.addEventListener("click", function(){
-            // event.preventDefault();
+        scoreButton.addEventListener("click", function(event){
+            event.preventDefault();
 
             console.log("You clicked the sumbit button!")
     
-        //     var submitEl = document.querySelector('.initials').value;
-        //     if(submitEl = "") {
-        //         alert("Please enter your initals.")
-        //     }  
+            var submitEl = document.querySelector('.initials').value;
+
+            console.log(submitEl);
+
+            if(submitEl === "") {
+                alert("Please enter your initals.");
+            }  else {
+                window.location.href = "Assets/high-scores.html";
+                localStorage.setItem("userScore", score);
+                localStorage.setItem("userInitials", submitEl);
+            }
     
-        //     localStorage.setItem("userScore", score);
-        //     localStorage.setItem("userInitials", submitEl);
+            
+            var newRow = document.createElement('tr');
+            var initialsRow = document.createElement('td');
+            initialsRow.textContent = submitEl;
+            var scoreRow = document.createElement('td');
+            scoreRow.textContent = score;
+            newRow.appendChild(initialsRow);
+            newRow.appendChild(scoreRow);
     
-        //     var newRow = document.createElement('tr');
-        //     var initialsRow = document.createElement('td');
-        //     initialsRow.textContent = submitEl;
-        //     var scoreRow = document.createElement('td');
-        //     scoreRow.textContent = score;
-        //     newRow.appendChild(initialsRow);
-        //     newRow.appendChild(scoreRow);
-    
-        //     scoreTable.appendChild(newRow);
+            scoreTable.appendChild(newRow);
     
     
         });
-      };
     
     console.log("End of quiz!");
 }
