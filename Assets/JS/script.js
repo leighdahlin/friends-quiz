@@ -128,7 +128,7 @@ var question10 = {
     question: "What ingredient did Rachel mistakingly put in her Thanksgiving trifle?",
     choice1: "Lady fingers",
     choice2: "Fish",
-    choice3: "Brocolli",
+    choice3: "Feet",
     choice4: "Beef",
     answer: function() {
         return this.choice4;
