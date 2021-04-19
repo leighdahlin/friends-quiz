@@ -182,6 +182,7 @@ function timesUpMessage() {
     nextQEl.remove();
     headerImage.setAttribute('class', 'hidden');
     triviaImg.setAttribute('class', 'visible');
+    triviaImg.setAttribute('style', 'width: 75%');
     triviaImg.setAttribute('src', 'Assets/JPEGs/times-up.jpg');
 
     headingEl.setAttribute("class", "visible");
@@ -643,14 +644,17 @@ function endOfQuiz() {
         headingEl.textContent = "You're definitely a SUPERFAN!";
         triviaImg.setAttribute('src', 'Assets/JPEGs/superfan-score-range.jpg');
         triviaImg.setAttribute('style', 'width: 50%;');
+        triviaImg.setAttribute('class', 'fan-img');
     } else if (score > 30 && score < 80) {
         headingEl.textContent = "Is that all you got? You're not quite a Superfan.";
         triviaImg.setAttribute('src', 'Assets/JPEGs/mediocre-score-range.jpg');
         triviaImg.setAttribute('style', 'width: 50%;');
+        triviaImg.setAttribute('class', 'fan-img');
     } else {
         headingEl.textContent = "Do you even like FRIENDS?";
         triviaImg.setAttribute('src', 'Assets/JPEGs/worst-score-range.jpg');
         triviaImg.setAttribute('style', 'width: 50%;');
+        triviaImg.setAttribute('class', 'fan-img');
     };
 
     headingEl.setAttribute("class", "visible");

@@ -14,11 +14,16 @@ body {
 }
 
 header {
-    padding: 2%;
     padding-bottom: 5%;
+    flex-direction: column;
+    display: flex;
+                      
+}
+
+.header-div {
     display: flex;
     justify-content: space-between;
-                          
+    padding: 1%;
 }
 
 .high-scores, #time {
@@ -39,6 +44,15 @@ a{
 
 a:hover {
     transform: scale(1.05);
+}
+
+.header-img-div {
+    display: flex;
+    justify-content: center;
+}
+
+#header-img {
+    width: 65%;
 }
 
 .main-content {
@@ -84,20 +98,6 @@ h2 {
     font-size: 1rem;
 }
 
-.initials {
-    width: 20%;
-}
-
-::placeholder {
-    text-align: center;
-}
-
-.score-submit {
-margin-top: 3%;
-padding: 1%;
-width: 15%;
-}
-
 
 button, input[class = "visible"] {
     padding: 1.5%;
@@ -113,7 +113,7 @@ button, input[class = "visible"] {
     display: block;
     padding: 1.5%;
     margin-bottom: 3%;
-    margin-left: 0;
+    margin-left: 2%;
 }
 
 .button0:hover, .button1:hover, .button2:hover, .button3:hover {
@@ -136,5 +136,90 @@ button, input[class = "visible"] {
 }
 
 form {
-    width: 50%;
+    width: 75%;
+}
+
+.initials {
+    width: 20%;
+}
+
+::placeholder {
+    text-align: center;
+}
+
+.score-submit {
+margin-top: 3%;
+padding: 1%;
+width: 15%;
+}
+
+@media screen and (max-width: 768px) {
+    header {
+        padding-bottom: 10%;
+        flex-direction: column;
+    }
+
+    a {
+        padding: 2%;
+        margin: 2%;
+    }
+
+    button {
+        padding: 3%;
+        margin: 5%;
+        font-size: 1.25rem;
+    }
+
+    .trivia-img {
+        width: 50%;
+    }
+
+    #main-content-head {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    #sub-content {
+        padding: 5%;
+        width: 85%;
+        font-size: 1.25rem;
+    }
+
+    .header-div {
+        padding: 2%;
+        margin-bottom: 2%;
+    }
+
+    #time {
+        width: 25%;
+        margin: 2%;
+        font-size: 1rem;
+    }
+
+    #header-img {
+        margin-top: 4%;
+        width: 75%;
+    }
+
+    form {
+        width: 90%;
+    }
+
+    .button0, .button1, .button2, .button3 {
+        margin-left: 5%;
+    }
+
+    .fan-img {
+        width: 75%;
+    }
+
+    .initials {
+        width: 40%;
+        margin-bottom: 3%;
+    }
+
+    .score-submit {
+        width: 40%;
+    }
+
 }
