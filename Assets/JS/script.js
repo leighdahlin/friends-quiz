@@ -706,7 +706,7 @@ function endOfQuiz() {
             event.preventDefault();
             
             //stores user data into an object
-            var mostRecentUser = document.querySelector('.initials').value;
+            var mostRecentUser = document.querySelector('.initials').value.toUpperCase();
             var mostRecentScore = score;
             var scoreData = {
                 score: mostRecentScore,
