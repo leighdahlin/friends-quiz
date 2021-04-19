@@ -8,32 +8,63 @@
     --cool-grey: #2F3E46;
 }
 
+header {
+    padding: 2%;
+    width: 100%;
+    height: 10%;
+    display: flex;
+    align-items: flex-end;
+                          
+}
+
+a{
+    color: var(--dark-slate-grey);
+    font-size: 1.25rem;
+    text-decoration: none;
+    background-color: var(--peacock-green);
+    color: white;
+    padding: 1%;
+    border-radius: 10px;
+}
+
+a:hover {
+    transform: scale(1.05);
+}
+
 body {
     font-family: Georgia, 'Times New Roman', Times, serif;
     background: var(--green-grey);
 }
 
-header {
-    padding: 2%;
-    padding-bottom: 5%;
+.container {
     display: flex;
-    justify-content: space-between;
-                          
+    flex-direction: column;
+    align-items: center;
 }
 
 h1 {
-    font-size: 25px;
+    width: 50%;
+    font-size: 2rem;
     font-weight: bolder;
-    padding: 3%;
+    padding-bottom: 2%;
     color: var(--cool-grey);
-    border-bottom: solid var(--dark-slate-grey);
+    border-bottom: solid 3px var(--dark-slate-grey);
 } 
 
 ul {
-    padding: 5%
+    padding-bottom: 3%;
+    width: 50%;
 }
 
 li {
     list-style-type: none;
-    padding: 1%;
+    margin-bottom: 3%;
+    font-size: 1.5rem;
+    background-color: var(--sap-green);
+    color:var(--cool-grey);
+}
+
+@media screen and (max-width: 768px) {
+
+
 }

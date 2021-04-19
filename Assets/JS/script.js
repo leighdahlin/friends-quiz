@@ -238,7 +238,7 @@ function questionPopUp() {
         if(currentChoice1 === questionAswer) {
             
             correctEl.textContent = "Correct!";
-            correctEl.setAttribute('style', 'border-top:solid 5px #354F52;');
+            correctEl.setAttribute('style', 'border-top:solid 2px #354F52;');
             firstButton.setAttribute('disabled','disabled');
             secondButton.setAttribute('disabled','disabled');
             thirdButton.setAttribute('disabled','disabled');
@@ -284,8 +284,8 @@ function questionPopUp() {
             }
 
         } else {
-            correctEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
-            correctEl.setAttribute('style', 'border-top:solid 5px #354F52;');           
+            correctEl.textContent = "Incorrect!";
+            correctEl.setAttribute('style', 'border-top:solid 2px #354F52;');           
             firstButton.setAttribute('disabled','disabled');
             secondButton.setAttribute('disabled','disabled');
             thirdButton.setAttribute('disabled','disabled');
@@ -335,7 +335,7 @@ function questionPopUp() {
     secondButton.addEventListener("click", function() {
         if(currentChoice2 === questionAswer) {
             correctEl.textContent = "Correct!";
-            correctEl.setAttribute('style', 'border-top:solid 5px #354F52;');
+            correctEl.setAttribute('style', 'border-top:solid 2px #354F52;');
             firstButton.setAttribute('disabled','disabled');
             secondButton.setAttribute('disabled','disabled');
             thirdButton.setAttribute('disabled','disabled');
@@ -380,8 +380,8 @@ function questionPopUp() {
                 })
             }
         } else {
-            correctEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
-            correctEl.setAttribute('style', 'border-top:solid 5px #354F52;');
+            correctEl.textContent = "Incorrect!";
+            correctEl.setAttribute('style', 'border-top:solid 2px #354F52;');
             firstButton.setAttribute('disabled','disabled');
             secondButton.setAttribute('disabled','disabled');
             thirdButton.setAttribute('disabled','disabled');
@@ -431,7 +431,7 @@ function questionPopUp() {
     thirdButton.addEventListener("click", function() {
         if(currentChoice3 === questionAswer) {
             correctEl.textContent = "Correct!";
-            correctEl.setAttribute('style', 'border-top:solid 5px #354F52;');
+            correctEl.setAttribute('style', 'border-top:solid 2px #354F52;');
             firstButton.setAttribute('disabled','disabled');
             secondButton.setAttribute('disabled','disabled');
             thirdButton.setAttribute('disabled','disabled');
@@ -476,8 +476,8 @@ function questionPopUp() {
                 })
             }
         } else {
-            correctEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
-            correctEl.setAttribute('style', 'border-top:solid 5px #354F52;');
+            correctEl.textContent = "Incorrect!";
+            correctEl.setAttribute('style', 'border-top:solid 2px #354F52;');
             firstButton.setAttribute('disabled','disabled');
             secondButton.setAttribute('disabled','disabled');
             thirdButton.setAttribute('disabled','disabled');
@@ -527,7 +527,7 @@ function questionPopUp() {
     fourthButton.addEventListener("click", function() {
         if(currentChoice4 === questionAswer) {
             correctEl.textContent = "Correct!";
-            correctEl.setAttribute('style', 'border-top:solid 5px #354F52;');
+            correctEl.setAttribute('style', 'border-top:solid 2px #354F52;');
             firstButton.setAttribute('disabled','disabled');
             secondButton.setAttribute('disabled','disabled');
             thirdButton.setAttribute('disabled','disabled');
@@ -573,8 +573,8 @@ function questionPopUp() {
             }
             
         } else {
-            correctEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
-            correctEl.setAttribute('style', 'border-top:solid 5px #354F52;');
+            correctEl.textContent = "Incorrect!";
+            correctEl.setAttribute('style', 'border-top:solid 2px #354F52;');
             firstButton.setAttribute('disabled','disabled');
             secondButton.setAttribute('disabled','disabled');
             thirdButton.setAttribute('disabled','disabled');

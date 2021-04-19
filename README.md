@@ -11,6 +11,7 @@ Key features of the quiz include:
 
 * Link to High Scores html page from the start page
 * Each time the quiz is run, the quiz questions will be shuffled
+* Once the quiz has been started, the View Scores link is replaced with a Restart Quiz link
 * Dynamically created question and answer buttons for each quiz question
 * Even listeners for each button that:
     * Check if you selected the right question
@@ -34,6 +35,7 @@ Key features of the quiz include:
 ![Screenshot of Start Page](Assets/JPEGs/trivia-start-page.png)
 ![Screenshot of Question Page](/Assets/JPEGs/trivia-question-page.png)
 ![Screenshot of Times Up Page](/Assets/JPEGs/trivia-timeup-page.png)
-![Screenshot for Low Score Range](/Assets/JPEGs/trivia-superfan.png)
+![Screenshot for Low Score Range](/Assets/JPEGs/trivia-not-superfan.png)
 ![Screenshot for Medium Score Range](/Assets/JPEGs/trivia-not-quite-superfan.png)
 ![Screenshot for Best Score Range](/Assets/JPEGs/trivia-superfan.png)
+![Screenshot of High Scores](/Assets/JPEGs/trivia-start-page.png)

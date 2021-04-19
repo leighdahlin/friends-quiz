@@ -28,6 +28,17 @@ header {
 
 a{
     color: var(--dark-slate-grey);
+    font-size: 1.25rem;
+    text-decoration: none;
+    background-color: var(--peacock-green);
+    color: white;
+    padding: 1%;
+    border-radius: 10px;
+    align-self: flex-start;
+}
+
+a:hover {
+    transform: scale(1.05);
 }
 
 .main-content {
@@ -103,6 +114,10 @@ button, input[class = "visible"] {
     padding: 1.5%;
     margin-bottom: 3%;
     margin-left: 0;
+}
+
+.button0:hover, .button1:hover, .button2:hover, .button3:hover {
+    transform: scale(1.05);
 }
 
 .correct-incorrect {
