@@ -29,6 +29,10 @@ h1 {
     border-bottom: solid var(--dark-slate-grey);
 } 
 
+ul {
+    padding: 5%
+}
+
 li {
     list-style-type: none;
 }
