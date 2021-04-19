@@ -12,7 +12,10 @@ var nextQEl = document.querySelector(".next-div");
 // var userScore = localStorage.getItem("user-score");
 // var userInitials = localStorage.getItem("initials");
 
-var scoreTable = document.querySelector(".table-body");
+// var scoreTable = document.querySelector(".table-body");
+
+var highScores = JSON.parse(localStorage.getItem("highScores",)) || [];
+var maxHighScores = 5;
 
 // var button1El = document.querySelector("#button1");
 // var button2El = document.querySelector("#button2");
@@ -853,24 +856,42 @@ function endOfQuiz() {
 
             console.log("You clicked the sumbit button!")
     
-            var submitEl = document.querySelector('.initials').value;
+            var mostRecentUser = document.querySelector('.initials').value;
+            var mostRecentScore = score;
+            var scoreData = {
+                score: mostRecentScore,
+                initials: mostRecentUser
+            }
 
-            console.log(submitEl);
+            highScores.push(scoreData);
+            highScores.sort(function(a,b){return b.score-a.score});
+            console.log(highScores);
+            highScores.splice(5);
 
-            if(submitEl === "") {
+            localStorage.setItem('highScores', JSON.stringify(highScores))
+                
+            console.log(highScores);
+
+            if(mostRecentUser === "") {
                 alert("Please enter your initals.");
-            }  else {
-                // window.location.href = "Assets/high-scores.html";
-                localStorage.setItem("userScore", score);
-                localStorage.setItem("userInitials", submitEl);
-                openHighScores();
-                // writeScoreData();
             }
     
-        });
+            else {
+                window.location.href = "Assets/high-scores.html";
+            }
+        //         localStorage.setItem("userScore", mostRecentScore);
+        //         localStorage.setItem("userInitials", mostRecentUser);
+        //         // openHighScores();
+        //         // writeScoreData();
+        //     }
+    
+        // });
     
     console.log("End of quiz!");
+});
 }
+
+
 
 // function writeScoreData() {
     // var submitEl = localStorage.getItem("userInitials");
@@ -894,46 +915,45 @@ function endOfQuiz() {
     
 // }
 
-function openHighScores() {
-    var submitEl = localStorage.getItem("userInitials");
-    var score = localStorage.getItem("userScore");
+// function openHighScores() {
+//     var submitEl = localStorage.getItem("userInitials");
+//     var score = localStorage.getItem("userScore");
 
-    headingEl.textContent = "High Scores";
-    subContentEl.setAttribute("class", "hidden");
+//     headingEl.textContent = "High Scores";
+//     subContentEl.setAttribute("class", "hidden");
 
-    var creatTable = document.createElement('table');
-    var creatTableHeader = document.createElement('thead');
-    var creatTableHeaderData1 = document.createElement('td');
-    var creatTableHeaderData2 = document.createElement('td');
-    creatTableHeaderData1.textContent = "User Initials";
-    creatTableHeader.appendChild(creatTableHeaderData1);
-    creatTableHeaderData2.textContent = "Score";
-    creatTableHeader.appendChild(creatTableHeaderData2);
-    creatTable.appendChild(creatTableHeader);
+//     var creatTable = document.createElement('table');
+//     var creatTableHeader = document.createElement('thead');
+//     var creatTableHeaderData1 = document.createElement('td');
+//     var creatTableHeaderData2 = document.createElement('td');
+//     creatTableHeaderData1.textContent = "User Initials";
+//     creatTableHeader.appendChild(creatTableHeaderData1);
+//     creatTableHeaderData2.textContent = "Score";
+//     creatTableHeader.appendChild(creatTableHeaderData2);
+//     creatTable.appendChild(creatTableHeader);
 
-    var tableBody = document.createElement('tbody')
-    var newRow = document.createElement('tr');
-    var initialsRow = document.createElement('td');
-    initialsRow.textContent = submitEl;
+//     var tableBody = document.createElement('tbody')
+//     var newRow = document.createElement('tr');
+//     var initialsRow = document.createElement('td');
+//     initialsRow.textContent = submitEl;
 
-    console.log("Log initials row:" + initialsRow);
+//     console.log("Log initials row:" + initialsRow);
 
-    var scoreRow = document.createElement('td');
-    scoreRow.textContent = score;
+//     var scoreRow = document.createElement('td');
+//     scoreRow.textContent = score;
 
-    console.log("Log score row:" +scoreRow);
+//     console.log("Log score row:" +scoreRow);
 
-    newRow.appendChild(initialsRow);
-    newRow.appendChild(scoreRow);
+//     newRow.appendChild(initialsRow);
+//     newRow.appendChild(scoreRow);
 
-    tableBody.appendChild(newRow);
+//     tableBody.appendChild(newRow);
 
 
-    creatTable.appendChild(tableBody);
-    mainContentEl.appendChild(creatTable);
-    
+//     creatTable.appendChild(tableBody);
+//     mainContentEl.appendChild(creatTable);
 
-}
+// }
 
 
 
