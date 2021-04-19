@@ -30,7 +30,7 @@ Key features of the quiz include:
 
 [Friends Trivia Quiz: Are You A Superfan?](https://leighdahlin.github.io/leigh-dahlin-homework4/)
 
-## Screenshot
+## Screenshots
 
 ![Screenshot of Start Page](Assets/JPEGs/trivia-start-page.png)
 ![Screenshot of Question Page](/Assets/JPEGs/trivia-question-page.png)
