@@ -1,7 +1,10 @@
-var secondsLeft = 101;
+var secondsLeft = 121;
 var timeEl = document.querySelector("#time");
 var startButtonEl = document.querySelector(".start-button");
+var highScoresLink = document.querySelector("#high-scores");
+var headerImage = document.querySelector("#header-img");
 var headingEl = document.querySelector("#main-content-head");
+var triviaImg = document.querySelector(".trivia-img")
 var subContentEl = document.querySelector("#sub-content");
 var mainContentEl = document.querySelector(".main-content");
 var questionEl = document.querySelector("#question-head");
@@ -31,62 +34,116 @@ var finishQuiz = false;
 
 
 var question1 = {
-    question: "What is an object in Javascript?",
-    choice1: "A correlation of properties",
-    choice2: "An array but bigger",
-    choice3: "A function for strings",
-    choice4: "A function for strings",
+    question: "How many times did Ross get divorced?",
+    choice1: "One",
+    choice2: "Two",
+    choice3: "Three",
+    choice4: "Four",
     answer: function() {
-        return this.choice1;
+        return this.choice3;
      } 
 };
 
 var question2 = {
-    question: "Which best describes the window object?",
-    choice1: "A",
-    choice2: "B",
-    choice3: "C",
-    choice4: "D",
+    question: "Joey played Dr. Drake Ramoray on which soap opera show?",
+    choice1: "Days of Our Lives",
+    choice2: "Nights of Our Lives",
+    choice3: "Days and Nights of our Lives",
+    choice4: "We had the Time of Our Lives",
     answer: function() {
        return this.choice1;
     }
 };
 
 var question3 = {
-    question: "How do you start a function?",
-    choice1: "E",
-    choice2: "F",
-    choice3: "G",
-    choice4: "H",
+    question: "Phoebe's scientist boyfriend worked in what city?",
+    choice1: "Russia",
+    choice2: "Moscow",
+    choice3: "Minsk",
+    choice4: "Omsk",
     answer: function() {
-        return this.choice1;
+        return this.choice3;
      }
 };
 
 var question4 = {
-    question: "What is an event listener?",
-    choice1: "I",
-    choice2: "J",
-    choice3: "K",
-    choice4: "L",
+    question: "What is Chandler Bing's middle name?",
+    choice1: "Martha",
+    choice2: "Muriel",
+    choice3: "Marie",
+    choice4: "Mary",
     answer: function() {
-        return this.choice1;
+        return this.choice2;
      }
 };
 
 var question5 = {
-    question: "Which of the timer intervals below will execute?",
-    choice1: "M",
-    choice2: "N",
-    choice3: "O",
-    choice4: "P",
+    question: "Monica categorizes her towels in how many categories?",
+    choice1: "Five",
+    choice2: "Twenty",
+    choice3: "Eleven",
+    choice4: "Nine",
+    answer: function() {
+        return this.choice3;
+     }
+};
+
+var question6 = {
+    question: "Phoebe attempts to teach Joey what language?",
+    choice1: "English",
+    choice2: "French",
+    choice3: "Dutch",
+    choice4: "Italian",
+    answer: function() {
+        return this.choice2;
+     }
+};
+
+var question7 = {
+    question: "Who was Monica's first kiss?",
+    choice1: "Ross",
+    choice2: "Chandler",
+    choice3: "Joey",
+    choice4: "Richard",
     answer: function() {
         return this.choice1;
      }
 };
 
+var question8 = {
+    question: "What holiday does Chandler hate?",
+    choice1: "Halloween",
+    choice2: "Christmas",
+    choice3: "Earth Day",
+    choice4: "Thanksgiving",
+    answer: function() {
+        return this.choice4;
+     }
+};
 
-var questionBank = [question1, question2, question3, question4, question5];
+var question9 = {
+    question: "Where did Ross and Rachel have their first date?",
+    choice1: "The coffee house",
+    choice2: "Monica's apartment",
+    choice3: "The planetarium",
+    choice4: "A restaurant",
+    answer: function() {
+        return this.choice3;
+     }
+};
+
+var question10 = {
+    question: "What ingredient did Rachel mistakingly put in her Thanksgiving trifle?",
+    choice1: "Lady fingers",
+    choice2: "Fish",
+    choice3: "Brocolli",
+    choice4: "Beef",
+    answer: function() {
+        return this.choice4;
+     }
+};
+
+var questionBank = [question1, question2, question3, question4, question5, question6, question7, question8, question9, question10];
 // var questionBankCopy = questionBank.slice();
 // var counter = questionBank.length + 1;
 if(document.querySelector('.start-button')) {  
@@ -97,9 +154,12 @@ startButtonEl.addEventListener("click", questionPopUp);
 // nextBtn.addEventListener("click", questionPopUps);
 
 function removeIntroPage() {
-    headingEl.setAttribute("class", "hidden");
     subContentEl.setAttribute("class", "hidden");
     startButtonEl.remove();
+    triviaImg.setAttribute('class', 'hidden');
+    highScoresLink.textContent = "Restart Quiz";
+    highScoresLink.setAttribute('href','index.html');
+    headerImage.setAttribute('class', 'visible');
 
 };
 
@@ -136,6 +196,9 @@ function timesUpMessage() {
     buttonsEl.remove();
     displayAnswerEl.remove();
     nextQEl.remove();
+    headerImage.setAttribute('class', 'hidden');
+    triviaImg.setAttribute('class', 'visible');
+    triviaImg.setAttribute('src', 'Assets/JPEGs/times-up.jpg');
     // button1El.remove();
     // button2El.remove();
     // button3El.remove();
@@ -144,9 +207,10 @@ function timesUpMessage() {
     // nextBtn.remove();
 
     headingEl.setAttribute("class", "visible");
-    headingEl.textContent = "Your time is up!";
+    headingEl.textContent = "Whoops! Your time is up...";
     subContentEl.setAttribute("class", "visible");
     subContentEl.textContent = "Your score is " + score;
+    setTimeout(endOfQuiz, 5000);
 
 
 }
@@ -248,7 +312,9 @@ function questionPopUp() {
     firstButton.addEventListener("click", function() {
         if(currentChoice1 === questionAswer) {
             // ifCorrect();
+            
             correctEl.textContent = "Correct!";
+            // correctEl.setAttribute('style', 'border, border-top: solid #354F52;')
             firstButton.setAttribute('disabled','disabled');
             secondButton.setAttribute('disabled','disabled');
             thirdButton.setAttribute('disabled','disabled');
@@ -257,7 +323,7 @@ function questionPopUp() {
             score += 1;
             console.log("This is the current score: " + score);
 
-            if (index < 5) {
+            if (index < questionBank.length) {
                 var nextCreate = document.createElement('button');
                 nextCreate.className = "next";
                 nextCreate.textContent = "Next Question";
@@ -304,7 +370,7 @@ function questionPopUp() {
             reduceTimer = true;
             console.log("Reduce time? " + reduceTimer);
 
-            if (index < 5) {
+            if (index < questionBank.length) {
                 var nextCreate = document.createElement('button');
                 nextCreate.className = "next";
                 nextCreate.textContent = "Next Question";
@@ -354,7 +420,7 @@ function questionPopUp() {
             score += 1;
             console.log("This is the current score: " + score);
 
-            if (index < 5) {
+            if (index < questionBank.length) {
                 var nextCreate = document.createElement('button');
                 nextCreate.className = "next";
                 nextCreate.textContent = "Next Question";
@@ -400,7 +466,7 @@ function questionPopUp() {
             reduceTimer = true;
             console.log("Reduce time? " + reduceTimer);
 
-            if (index < 5) {
+            if (index < questionBank.length) {
                 var nextCreate = document.createElement('button');
                 nextCreate.className = "next";
                 nextCreate.textContent = "Next Question";
@@ -441,6 +507,7 @@ function questionPopUp() {
     thirdButton.addEventListener("click", function() {
         if(currentChoice3 === questionAswer) {
             // ifCorrect();
+            answerEl.setAttribute('class', 'visible');
             correctEl.textContent = "Correct!";
             firstButton.setAttribute('disabled','disabled');
             secondButton.setAttribute('disabled','disabled');
@@ -450,7 +517,7 @@ function questionPopUp() {
             score += 1;
             console.log("This is the current score: " + score);
 
-            if (index < 5) {
+            if (index < questionBank.length) {
                 var nextCreate = document.createElement('button');
                 nextCreate.className = "next";
                 nextCreate.textContent = "Next Question";
@@ -486,7 +553,6 @@ function questionPopUp() {
                 })
             }
         } else {
-            // ifIncorrect();
             correctEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
             firstButton.setAttribute('disabled','disabled');
             secondButton.setAttribute('disabled','disabled');
@@ -496,7 +562,7 @@ function questionPopUp() {
             reduceTimer = true;
             console.log("Reduce time? " + reduceTimer);
 
-            if (index < 5) {
+            if (index < questionBank.length) {
                 var nextCreate = document.createElement('button');
                 nextCreate.className = "next";
                 nextCreate.textContent = "Next Question";
@@ -546,7 +612,7 @@ function questionPopUp() {
             score += 1;
             console.log("This is the current score: " + score);
 
-            if (index < 5) {
+            if (index < questionBank.length) {
                 var nextCreate = document.createElement('button');
                 nextCreate.className = "next";
                 nextCreate.textContent = "Next Question";
@@ -593,7 +659,7 @@ function questionPopUp() {
             reduceTimer = true;
             console.log("Reduce time? " + reduceTimer);
 
-            if (index < 5) {
+            if (index < questionBank.length) {
                 var nextCreate = document.createElement('button');
                 nextCreate.className = "next";
                 nextCreate.textContent = "Next Question";
@@ -832,6 +898,16 @@ function endOfQuiz() {
     headingEl.textContent = "You finished!";
     subContentEl.setAttribute("class", "visible");
     subContentEl.textContent = "Your score is " + score;
+    triviaImg.setAttribute('class', 'visible');
+    
+    if(score > 7) {
+        triviaImg.setAttribute('src', 'Assets/JPEGs/superfan-score-range.jpg');
+    } else if (score > 3 && score < 8) {
+        triviaImg.setAttribute('src', 'Assets/JPEGs/mediocre-score-range.jpg');
+    } else {
+        triviaImg.setAttribute('src', 'Assets/JPEGs/worst-score-range.jpg');
+    }
+        
 
     var userInput = document.createElement('input');
     userInput.className = "initials";
@@ -842,7 +918,7 @@ function endOfQuiz() {
     userInput.setAttribute('placeholder', 'Enter your initial here');
 
     var submitScore = document.createElement('button');
-    submitScore.textContent = "Add to Score Board";
+    submitScore.textContent = "See if you make the cut!";
     submitScore.setAttribute('type', 'button');
     submitScore.className = "score-submit";
 

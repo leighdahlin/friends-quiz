@@ -4,23 +4,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Javascript Multiple Choice Quiz</title>
+    <title>Friends Trivia Quiz: Are you a Superfan?</title>
     <link rel="stylesheet" href="Assets/CSS/reset.css">
     <link rel="stylesheet" href="Assets/CSS/style.css">
     
 </head>
 <body>
     <header class="top-page">
-        <a id="high-scores" href="Assets/high-scores.html">High Scores</a>
+        <a id="high-scores" class = "visible" href="Assets/high-scores.html">High Scores</a>
+        <img id="header-img" src="Assets/JPEGs/questions-image.jpg" class="hidden" alt="picture of friends cast">
         <p id="time"></p>
     </header>
     <main class= "main-content">
-        <h1 id="main-content-head" class= "visible">Coding Quiz Challenge</h1>
+        <h1 id="main-content-head" class= "hidden"></h1>
+        <img class = "visible trivia-img" src="Assets/JPEGs/friends-trivia.jpg" alt="Picture of friends cast.">
         <p id="sub-content" class="visible">
-            This quiz is designed to test your Javascript knowledge. You will have two minutes
-            to answer 10 questions. For each question you miss, your time will be reduced by
-            15 seconds. Do you think you have the skills to pass this quiz? Press the button 
-            below to see!
+            Do you think you're a FRIENDS superfan? Want to find out? Well, you've come to the
+            right place. You'll have two minutes to answer ten questions that any Superfan would know.
+             Take the quiz and see if you make the cut!
         </p>
         <button class="start-button">Start Quiz</button>
         <form>
@@ -28,16 +29,6 @@
             <div class="button-div"></div>
             <div class="answer"></div>
             <div class="next-div"></div>
-            <!-- onclick="questionPopUps()" -->
-            <!-- <button type="button" id="button1" class="hidden"></button>
-            <button type="button" id="button2" class="hidden"></button>
-            <button type="button" id="button3" class="hidden"></button>
-            <button type="button" id="button4" class="hidden"></button> -->
-            
-            <div id="answer"></div>
-
-            <button type="button" id="next" class="hidden">Next Question</button>
-            <button type="button" id="finish" class="hidden">See Score</button>
         </form>
     </main>
     <script src="Assets/JS/script.js"></script>
