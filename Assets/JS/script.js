@@ -188,7 +188,6 @@ function timesUpMessage() {
     headingEl.textContent = "Whoops! Your time is up...";
     subContentEl.setAttribute("class", "visible");
     subContentEl.textContent = "You'll have to try again! Your score is " + (score/10)*100 + "%";
-    // setTimeout(endOfQuiz, 2000);
 }
 
 
@@ -657,10 +656,6 @@ function endOfQuiz() {
     headingEl.setAttribute("class", "visible");
     triviaImg.setAttribute('class', 'visible');
         
-    // var containerDiv = document.createElement('div');
-    // containerDiv.setAttribute('class', 'container');
-    // mainContentEl.appendChild(containerDiv);
-
     var userInput = document.createElement('input');
     userInput.className = "initials";
     userInput.setAttribute('type', 'text');
