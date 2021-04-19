@@ -66,12 +66,27 @@ h2 {
 }
 
 #sub-content {
-    padding: 5%;
+    padding: 2%;
     text-align: center;
     width: 70%;
     color: var(--dark-slate-grey);
-    font-size: 1.5rem;
+    font-size: 1rem;
 }
+
+.initials {
+    width: 20%;
+}
+
+::placeholder {
+    text-align: center;
+}
+
+.score-submit {
+margin-top: 3%;
+padding: 1%;
+width: 15%;
+}
+
 
 button, input[class = "visible"] {
     padding: 1.5%;
@@ -105,20 +120,6 @@ button, input[class = "visible"] {
     text-align: center;
 }
 
-li {
-    text-decoration: none;
-}
-
 form {
     width: 50%;
-}
-
-button[class = "hidden"] {
-    display: none;
-    background-color: orange;
-}
-
-button[class = "visible"] {
-    visibility: visible;
-    display: block;
 }

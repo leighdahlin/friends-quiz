@@ -1,16 +1,17 @@
-var secondsLeft = 6;
+var secondsLeft = 121;
 var timeEl = document.querySelector("#time");
-var startButtonEl = document.querySelector(".start-button");
 var highScoresLink = document.querySelector("#high-scores");
-var headerImage = document.querySelector("#header-img");
 var headingEl = document.querySelector("#main-content-head");
-var triviaImg = document.querySelector(".trivia-img")
-var subContentEl = document.querySelector("#sub-content");
+var headerImage = document.querySelector("#header-img");
 var mainContentEl = document.querySelector(".main-content");
+var triviaImg = document.querySelector(".trivia-img");
+var subContentEl = document.querySelector("#sub-content");
+var startButtonEl = document.querySelector(".start-button");
 var questionEl = document.querySelector("#question-head");
 var buttonsEl = document.querySelector(".button-div");
 var displayAnswerEl = document.querySelector(".answer");
 var nextQEl = document.querySelector(".next-div");
+var containerEl = document.querySelector(".container");
 var highScores = JSON.parse(localStorage.getItem("highScores",)) || [];
 var maxHighScores = 5;
 var index = 0;
@@ -153,7 +154,7 @@ var timerInterval = setInterval(function() {
     timeEl.textContent = "Timer: " + secondsLeft ;
 
     if(reduceTimer === true) {
-        secondsLeft -= 15;
+        secondsLeft -= 10;
         reduceTimer = false;
         clearInterval(timerInterval);
         setTime();
@@ -164,7 +165,7 @@ var timerInterval = setInterval(function() {
         timeEl.textContent = "";
     }
 
-    if(secondsLeft === 0) {
+    if(secondsLeft <= 0) {
         clearInterval(timerInterval);
         timeEl.textContent = "";
         timesUpMessage();
@@ -186,8 +187,8 @@ function timesUpMessage() {
     headingEl.setAttribute("class", "visible");
     headingEl.textContent = "Whoops! Your time is up...";
     subContentEl.setAttribute("class", "visible");
-    subContentEl.textContent = "Your score is " + score;
-    setTimeout(endOfQuiz, 5000);
+    subContentEl.textContent = "You'll have to try again! Your score is " + (score/10)*100 + "%";
+    // setTimeout(endOfQuiz, 2000);
 }
 
 
@@ -260,7 +261,7 @@ function questionPopUp() {
                     thirdButton.remove();
                     fourthButton.remove();
                     nextEl.remove();
-                    correctEl.remove;
+                    correctEl.remove();
                     questionPopUp();
                 })
             } else {
@@ -628,43 +629,56 @@ function questionPopUp() {
 function endOfQuiz() {
     questionEl.remove();
 
-    headingEl.setAttribute("class", "visible");
-    headingEl.textContent = "You finished!";
+    console.log("End of quiz!");
+
+    score = Math.floor((score/10)*100);
+
+    console.log(score);
+
+    headerImage.setAttribute('class', 'hidden');
     subContentEl.setAttribute("class", "visible");
-    subContentEl.textContent = "Your score is " + score;
-    triviaImg.setAttribute('class', 'visible');
+    subContentEl.textContent = "Your score is " + score + "%";
     
-    if(score > 7) {
+    
+    if(score > 80) {
+        headingEl.textContent = "You're definitely a SUPERFAN!";
         triviaImg.setAttribute('src', 'Assets/JPEGs/superfan-score-range.jpg');
-    } else if (score > 3 && score < 8) {
+        triviaImg.setAttribute('style', 'width: 50%;');
+    } else if (score > 30 && score < 80) {
+        headingEl.textContent = "Is that all you got? You're not quite a Superfan.";
         triviaImg.setAttribute('src', 'Assets/JPEGs/mediocre-score-range.jpg');
+        triviaImg.setAttribute('style', 'width: 50%;');
     } else {
+        headingEl.textContent = "Do you even like FRIENDS?";
         triviaImg.setAttribute('src', 'Assets/JPEGs/worst-score-range.jpg');
-    }
+        triviaImg.setAttribute('style', 'width: 50%;');
+    };
+
+    headingEl.setAttribute("class", "visible");
+    triviaImg.setAttribute('class', 'visible');
         
+    // var containerDiv = document.createElement('div');
+    // containerDiv.setAttribute('class', 'container');
+    // mainContentEl.appendChild(containerDiv);
 
     var userInput = document.createElement('input');
     userInput.className = "initials";
-    userInput.textContent = "See your results!";
     userInput.setAttribute('type', 'text');
-    userInput.setAttribute('style', 'display:block; margin: 5%; width: 100%;');
     userInput.setAttribute('maxlength', '3');
-    userInput.setAttribute('placeholder', 'Enter your initial here');
+    userInput.setAttribute('placeholder', 'Enter your initials');
 
     var submitScore = document.createElement('button');
-    submitScore.textContent = "See if you make the cut!";
+    submitScore.textContent = "High Scores";
     submitScore.setAttribute('type', 'button');
     submitScore.className = "score-submit";
 
-    subContentEl.appendChild(userInput);
-    subContentEl.appendChild(submitScore);
+    mainContentEl.appendChild(userInput);
+    mainContentEl.appendChild(submitScore);
 
         var scoreButton = document.querySelector(".score-submit");
 
         scoreButton.addEventListener("click", function(event){
             event.preventDefault();
-
-            console.log("You clicked the sumbit button!")
     
             var mostRecentUser = document.querySelector('.initials').value;
             var mostRecentScore = score;
@@ -684,13 +698,15 @@ function endOfQuiz() {
 
             if(mostRecentUser === "") {
                 alert("Please enter your initals.");
+                
             }
     
             else {
                 window.location.href = "Assets/high-scores.html";
+                
             }
     
-    console.log("End of quiz!");
+    
 });
 }
 
