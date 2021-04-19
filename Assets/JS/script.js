@@ -1,3 +1,4 @@
+//Assign variables for selectors
 var secondsLeft = 121;
 var timeEl = document.querySelector("#time");
 var highScoresLink = document.querySelector("#high-scores");
@@ -12,14 +13,18 @@ var buttonsEl = document.querySelector(".button-div");
 var displayAnswerEl = document.querySelector(".answer");
 var nextQEl = document.querySelector(".next-div");
 var containerEl = document.querySelector(".container");
-var highScores = JSON.parse(localStorage.getItem("highScores",)) || [];
+
+//store high scores from local storage to array, limited to 5 high scores
+var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
 var maxHighScores = 5;
+
+//initialize variables
 var index = 0;
 var reduceTimer = false;
 var score = 0;
 var finishQuiz = false;
 
-
+//quiz questions stored as objects
 var question1 = {
     question: "How many times did Ross get divorced?",
     choice1: "One",
@@ -130,13 +135,15 @@ var question10 = {
      }
 };
 
+//quiz question objects stored in array
 var questionBank = [question1, question2, question3, question4, question5, question6, question7, question8, question9, question10];
-  
+
+//event listeners for start button
 startButtonEl.addEventListener("click", removeIntroPage);
 startButtonEl.addEventListener("click", setTime);
 startButtonEl.addEventListener("click", questionPopUp);
 
-
+//when the start button is pressed, the start page is hidden, the anchor link changes to 'Restart Quiz' and the header image is made visible
 function removeIntroPage() {
     subContentEl.setAttribute("class", "hidden");
     startButtonEl.remove();
@@ -147,33 +154,38 @@ function removeIntroPage() {
 
 };
 
+//this function puts a timer at the top of the page after the start button is clicked
 function setTime() {
 
-var timerInterval = setInterval(function() {
-    secondsLeft--;
-    timeEl.textContent = "Timer: " + secondsLeft ;
+    var timerInterval = setInterval(function() {
+        secondsLeft--;
+        timeEl.textContent = "Timer: " + secondsLeft ;
 
-    if(reduceTimer === true) {
-        secondsLeft -= 10;
-        reduceTimer = false;
-        clearInterval(timerInterval);
-        setTime();
-    }
+        //when answer choices are checked in the questionPopUp function, reduceTimer = true is returned
+        if(reduceTimer === true) {
+            secondsLeft -= 10;
+            reduceTimer = false; //this sets reduceTimer back to false so it won't continue to reduce
+            clearInterval(timerInterval); //this clears the interval so it will start at the reduced timer
+            setTime(); //this re-runs the interval so it will keep counting down at the reduced timer
+        }
 
-    if(finishQuiz === true) {
-        clearInterval(timerInterval);
-        timeEl.textContent = "";
-    }
+        //after the last questions, the questionPop function returs finishQuiz = true to stop the timer
+        if(finishQuiz === true) { 
+            clearInterval(timerInterval);
+            timeEl.textContent = "";
+        }
 
-    if(secondsLeft <= 0) {
-        clearInterval(timerInterval);
-        timeEl.textContent = "";
-        timesUpMessage();
+        //if the seconds left are less than or equal to 0, a message will pop up from the TimesUpMessage function
+        if(secondsLeft <= 0) {
+            clearInterval(timerInterval);
+            timeEl.textContent = "";
+            timesUpMessage();
+        }
     }
-}
-, 1000)
+    , 1000)
 };
 
+//this function removes the question and buttons from the screen and changes the trivia image to visible and puts in a new image, the score is also shown
 function timesUpMessage() {
 
     questionEl.remove();
@@ -191,7 +203,7 @@ function timesUpMessage() {
     subContentEl.textContent = "You'll have to try again! Your score is " + (score/10)*100 + "%";
 }
 
-
+//when the page loads, the init function runs this function and shuffles the question bank array
 function shuffleArray() {
     for (var i = questionBank.length-1; i > 0; i--){
         let j = Math.floor(Math.random()*(i+1));
@@ -203,12 +215,14 @@ function shuffleArray() {
         console.log(questionBank);
 }
 
+//this function fills in the question div, dynamically creates buttons for the answer choices and check the answers
 function questionPopUp() {
 
-    currentQuestion = questionBank[index].question;
+    currentQuestion = questionBank[index].question; //sets the current quetion content
 
-    questionEl.textContent = currentQuestion;
+    questionEl.textContent = currentQuestion; //inputs the qestion into the html
 
+    //sets the buttons content, the index is incremented at the end of the function
     currentChoice1 = questionBank[index].choice1;
     currentChoice2 = questionBank[index].choice2;
     currentChoice3 = questionBank[index].choice3;
@@ -216,6 +230,7 @@ function questionPopUp() {
     questionAswer = questionBank[index].answer();
     var allchoices = [currentChoice1, currentChoice2, currentChoice3, currentChoice4]
 
+    //creates a button for each answer choice
     for (var i = 0; i < allchoices.length; i++) {
         var buttonEl = document.createElement('button');
         buttonEl.textContent = allchoices[i];
@@ -224,56 +239,60 @@ function questionPopUp() {
         buttonsEl.appendChild(buttonEl);
     }
 
+    //selectors for each button so event listeners can be created
     var firstButton = document.querySelector('.button0');
     var secondButton = document.querySelector('.button1');
     var thirdButton = document.querySelector('.button2');
     var fourthButton = document.querySelector('.button3');
+
+    //creating the text that will pop up saying if the choice was correct/incorrect when button clicked
     var newEl = document.createElement('p');
     newEl.className = "correct-incorrect";
     displayAnswerEl.appendChild(newEl);
     var correctEl = document.querySelector('.correct-incorrect');
     correctEl.setAttribute('style', 'border: none;');
 
-
+    //each button has an event listener that will check if the button clicked was the correct answer choice
     firstButton.addEventListener("click", function() {
         if(currentChoice1 === questionAswer) {
             
-            correctEl.textContent = "Correct!";
+            correctEl.textContent = "Correct!"; //if the choice is correct, this will populate the paragarph below
             correctEl.setAttribute('style', 'border-top:solid 2px #354F52;');
-            firstButton.setAttribute('disabled','disabled');
+            firstButton.setAttribute('disabled','disabled'); //each button is then disabled
             secondButton.setAttribute('disabled','disabled');
             thirdButton.setAttribute('disabled','disabled');
             fourthButton.setAttribute('disabled','disabled');
 
-            score += 1;
-            console.log("This is the current score: " + score);
+            score += 1; //the score is increased by 1 point
+            console.log("This is the current score: " + score); //keeps track of the score on the console
 
+            //this checks to see if there are any questions left in the questionBank
             if (index < questionBank.length) {
-                var nextCreate = document.createElement('button');
+                var nextCreate = document.createElement('button'); //creating the 'Next Question' button
                 nextCreate.className = "next";
                 nextCreate.textContent = "Next Question";
                 nextCreate.setAttribute('type', 'button');
-                nextQEl.appendChild(nextCreate);
+                nextQEl.appendChild(nextCreate); //adds the button to the html page
                 var nextEl = document.querySelector('.next');
-                nextEl.addEventListener("click", function() {
-                    firstButton.remove();
+                nextEl.addEventListener("click", function() { //event listener for Next button
+                    firstButton.remove(); //removes all button answer choices, Next button and correct/incorrect paragraph from screen
                     secondButton.remove();
                     thirdButton.remove();
                     fourthButton.remove();
                     nextEl.remove();
                     correctEl.remove();
-                    questionPopUp();
+                    questionPopUp(); //runs the questionPopUp function again to pull up the next question
                 })
             } else {
-                var submitCreate = document.createElement('button');
+                var submitCreate = document.createElement('button'); //if there aren't any questions left, a 'See your results' button is created
                 submitCreate.className = "submit";
                 submitCreate.textContent = "See your results!";
                 submitCreate.setAttribute('type', 'button');
                 nextQEl.appendChild(submitCreate);
                 var submitEl = document.querySelector('.submit');
-                finishQuiz = true;
-                submitEl.addEventListener("click", function() {
-                    firstButton.remove();
+                finishQuiz = true; //tells the setTimer function that the quiz is over and timer can be removed
+                submitEl.addEventListener("click", function() { //when the See your results' button is clicked removes current page info and runs endOfQuiz function
+                    firstButton.remove(); //removes all button answer choices, Next button and correct/incorrect paragraph from screen
                     secondButton.remove();
                     thirdButton.remove();
                     fourthButton.remove();
@@ -285,15 +304,15 @@ function questionPopUp() {
             }
 
         } else {
-            correctEl.textContent = "Incorrect!";
+            correctEl.textContent = "Incorrect!"; //if the choice is incorrect, this will populate the paragarph below
             correctEl.setAttribute('style', 'border-top:solid 2px #354F52;');           
             firstButton.setAttribute('disabled','disabled');
             secondButton.setAttribute('disabled','disabled');
             thirdButton.setAttribute('disabled','disabled');
             fourthButton.setAttribute('disabled','disabled');
 
-            reduceTimer = true;
-            console.log("Reduce time? " + reduceTimer);
+            reduceTimer = true; //tells the setTimer function to reduce the timer by 10 seconds
+            console.log("Reduce time? " + reduceTimer); //logs to the console if time is reduced
 
             if (index < questionBank.length) {
                 var nextCreate = document.createElement('button');
@@ -626,20 +645,22 @@ function questionPopUp() {
     
 }
 
+//this function is run when there are no more questions to go through in the questionBank
 function endOfQuiz() {
-    questionEl.remove();
+    questionEl.remove(); //removes last question from screen
 
-    console.log("End of quiz!");
+    console.log("End of quiz!"); //logs that the quiz has ended in the console
 
-    score = Math.floor((score/10)*100);
+    score = Math.floor((score/10)*100); //turns score into percentage
 
-    console.log(score);
+    console.log(score); //logs score percentage to console
 
+    //hides the header image, make the sub-content paragraph visible and populates it with the score
     headerImage.setAttribute('class', 'hidden');
     subContentEl.setAttribute("class", "visible");
     subContentEl.textContent = "Your score is " + score + "%";
     
-    
+    //based on the score, the user will see a different message and picture
     if(score > 80) {
         headingEl.textContent = "You're definitely a SUPERFAN!";
         triviaImg.setAttribute('src', 'Assets/JPEGs/superfan-score-range.jpg');
@@ -657,28 +678,34 @@ function endOfQuiz() {
         triviaImg.setAttribute('class', 'fan-img');
     };
 
+    //makes the message and picture defined above visible
     headingEl.setAttribute("class", "visible");
     triviaImg.setAttribute('class', 'visible');
         
+    //creates an input field for user initials
     var userInput = document.createElement('input');
     userInput.className = "initials";
     userInput.setAttribute('type', 'text');
     userInput.setAttribute('maxlength', '3');
     userInput.setAttribute('placeholder', 'Enter your initials');
 
+    //creates a button to see to submit initials and see high scores
     var submitScore = document.createElement('button');
     submitScore.textContent = "High Scores";
     submitScore.setAttribute('type', 'button');
     submitScore.className = "score-submit";
-
+    
+    //appends user input and high scores button to screen
     mainContentEl.appendChild(userInput);
     mainContentEl.appendChild(submitScore);
 
         var scoreButton = document.querySelector(".score-submit");
 
+        //event listener for high scores button stores initials and score to local storage
         scoreButton.addEventListener("click", function(event){
             event.preventDefault();
-    
+            
+            //stores user data into an object
             var mostRecentUser = document.querySelector('.initials').value;
             var mostRecentScore = score;
             var scoreData = {
@@ -686,20 +713,23 @@ function endOfQuiz() {
                 initials: mostRecentUser
             }
 
+            //push object into the highScore array assigned with the other variables 
             highScores.push(scoreData);
-            highScores.sort(function(a,b){return b.score-a.score});
+            highScores.sort(function(a,b){return b.score-a.score}); //sorts scores from highest to lowest
             console.log(highScores);
-            highScores.splice(5);
+            highScores.splice(5); //limits to top five scores
 
-            localStorage.setItem('highScores', JSON.stringify(highScores))
+            localStorage.setItem('highScores', JSON.stringify(highScores)) //stoes highScores to local storage in string form
                 
             console.log(highScores);
 
+            //data validation prompts user to enter initals, the max length was set to 3
             if(mostRecentUser === "") {
                 alert("Please enter your initals.");
                 
             }
-    
+
+            //takes user to high scores html page
             else {
                 window.location.href = "Assets/high-scores.html";
                 
@@ -709,7 +739,7 @@ function endOfQuiz() {
 });
 }
 
-
+// initial function to kick off
 function init() {
     shuffleArray();
 }
