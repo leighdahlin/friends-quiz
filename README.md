@@ -38,4 +38,4 @@ Key features of the quiz include:
 ![Screenshot for Low Score Range](/Assets/JPEGs/trivia-not-superfan.png)
 ![Screenshot for Medium Score Range](/Assets/JPEGs/trivia-not-quite-superfan.png)
 ![Screenshot for Best Score Range](/Assets/JPEGs/trivia-superfan.png)
-![Screenshot of High Scores](/Assets/JPEGs/trivia-start-page.png)
+![Screenshot of High Scores](/Assets/JPEGs/trivia-highscores-page.png)
