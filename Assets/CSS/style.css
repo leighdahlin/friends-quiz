@@ -94,6 +94,15 @@ button, input[class = "visible"] {
     margin: 4%;
     padding-top: 3%;
     padding-bottom: 3%;
+    text-align: center;
+}
+
+.next{
+    background-color: var(--peacock-green);
+}
+
+.next-div {
+    text-align: center;
 }
 
 li {

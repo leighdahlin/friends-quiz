@@ -1,4 +1,4 @@
-var secondsLeft = 121;
+var secondsLeft = 6;
 var timeEl = document.querySelector("#time");
 var startButtonEl = document.querySelector(".start-button");
 var highScoresLink = document.querySelector("#high-scores");
@@ -8,25 +8,11 @@ var triviaImg = document.querySelector(".trivia-img")
 var subContentEl = document.querySelector("#sub-content");
 var mainContentEl = document.querySelector(".main-content");
 var questionEl = document.querySelector("#question-head");
-
 var buttonsEl = document.querySelector(".button-div");
 var displayAnswerEl = document.querySelector(".answer");
 var nextQEl = document.querySelector(".next-div");
-// var userScore = localStorage.getItem("user-score");
-// var userInitials = localStorage.getItem("initials");
-
-// var scoreTable = document.querySelector(".table-body");
-
 var highScores = JSON.parse(localStorage.getItem("highScores",)) || [];
 var maxHighScores = 5;
-
-// var button1El = document.querySelector("#button1");
-// var button2El = document.querySelector("#button2");
-// var button3El = document.querySelector("#button3");
-// var button4El = document.querySelector("#button4");
-// var nextBtn = document.querySelector('#next');
-// var finishBtn = document.querySelector('#finish');
-// var answerEl = document.querySelector("#answer");
 var index = 0;
 var reduceTimer = false;
 var score = 0;
@@ -144,14 +130,11 @@ var question10 = {
 };
 
 var questionBank = [question1, question2, question3, question4, question5, question6, question7, question8, question9, question10];
-// var questionBankCopy = questionBank.slice();
-// var counter = questionBank.length + 1;
-if(document.querySelector('.start-button')) {  
+  
 startButtonEl.addEventListener("click", removeIntroPage);
 startButtonEl.addEventListener("click", setTime);
 startButtonEl.addEventListener("click", questionPopUp);
-}
-// nextBtn.addEventListener("click", questionPopUps);
+
 
 function removeIntroPage() {
     subContentEl.setAttribute("class", "hidden");
@@ -199,51 +182,15 @@ function timesUpMessage() {
     headerImage.setAttribute('class', 'hidden');
     triviaImg.setAttribute('class', 'visible');
     triviaImg.setAttribute('src', 'Assets/JPEGs/times-up.jpg');
-    // button1El.remove();
-    // button2El.remove();
-    // button3El.remove();
-    // button4El.remove();
-    // answerEl.remove();
-    // nextBtn.remove();
 
     headingEl.setAttribute("class", "visible");
     headingEl.textContent = "Whoops! Your time is up...";
     subContentEl.setAttribute("class", "visible");
     subContentEl.textContent = "Your score is " + score;
     setTimeout(endOfQuiz, 5000);
-
-
 }
 
-// function questionPopUps() {
-    
-    // button1El.setAttribute.disabled = false;
-    // button2El.setAttribute.disabled = false;
-    // button3El.setAttribute.disabled = false;
-    // button4El.setAttribute.disabled = false;
-    // setTimeout(questionPopUp, 1000);
-    // questionPopUp();
-    // checkAnswer();
-    // counter--;
-    // if (counter === 0) {
-    //         endOfQuiz();
-    //         finishQuiz = true;
-    //     };
-    
 
-    // calculateScore();
-
-    // if (increaseScore == true) {
-    //     score ++;
-    //     increaseScore == false;
-    // }
-    // console.log("This is the score:")
-    // console.log(score);
-    
-    // setTimeout(spliceAndCheck, 0500);
-
-    
-// };
 function shuffleArray() {
     for (var i = questionBank.length-1; i > 0; i--){
         let j = Math.floor(Math.random()*(i+1));
@@ -256,27 +203,6 @@ function shuffleArray() {
 }
 
 function questionPopUp() {
-
-    // event.stopPropagation();
-
-    // nextBtn.setAttribute("class", "hidden");
-    // nextBtn.removeEventListener("click", questionPopUps, false);
-    
-    
-
-    // increaseScore = false;
-    // button1El.setAttribute.disabled = false;
-    // button2El.setAttribute.disabled = false;
-    // button3El.setAttribute.disabled = false;
-    // button4El.setAttribute.disabled = false;
-
-    // answerEl.textContent = "";
-
-    // console.log("This is the length of the array before it's spliced:")
-    // console.log(questionBankCopy.length);
-
-    
-    // index = Math.floor(Math.random()*questionBankCopy.length);
 
     currentQuestion = questionBank[index].question;
 
@@ -305,16 +231,14 @@ function questionPopUp() {
     newEl.className = "correct-incorrect";
     displayAnswerEl.appendChild(newEl);
     var correctEl = document.querySelector('.correct-incorrect');
-
-
+    correctEl.setAttribute('style', 'border: none;');
 
 
     firstButton.addEventListener("click", function() {
         if(currentChoice1 === questionAswer) {
-            // ifCorrect();
             
             correctEl.textContent = "Correct!";
-            // correctEl.setAttribute('style', 'border, border-top: solid #354F52;')
+            correctEl.setAttribute('style', 'border-top:solid 5px #354F52;');
             firstButton.setAttribute('disabled','disabled');
             secondButton.setAttribute('disabled','disabled');
             thirdButton.setAttribute('disabled','disabled');
@@ -336,7 +260,7 @@ function questionPopUp() {
                     thirdButton.remove();
                     fourthButton.remove();
                     nextEl.remove();
-                    correctEl.textContent = "";
+                    correctEl.remove;
                     questionPopUp();
                 })
             } else {
@@ -353,15 +277,15 @@ function questionPopUp() {
                     thirdButton.remove();
                     fourthButton.remove();
                     submitEl.remove();
-                    correctEl.textContent = "";
+                    correctEl.remove();
                     endOfQuiz();
                 
                 })
             }
 
         } else {
-            // ifIncorrect();
             correctEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
+            correctEl.setAttribute('style', 'border-top:solid 5px #354F52;');           
             firstButton.setAttribute('disabled','disabled');
             secondButton.setAttribute('disabled','disabled');
             thirdButton.setAttribute('disabled','disabled');
@@ -383,7 +307,7 @@ function questionPopUp() {
                     thirdButton.remove();
                     fourthButton.remove();
                     nextEl.remove();
-                    correctEl.textContent = "";
+                    correctEl.remove();
                     questionPopUp();
                 })
             } else {
@@ -400,7 +324,7 @@ function questionPopUp() {
                     thirdButton.remove();
                     fourthButton.remove();
                     submitEl.remove();
-                    correctEl.textContent = "";
+                    correctEl.remove();
                     endOfQuiz();
                 
                 })
@@ -410,8 +334,8 @@ function questionPopUp() {
 
     secondButton.addEventListener("click", function() {
         if(currentChoice2 === questionAswer) {
-            // ifCorrect();
             correctEl.textContent = "Correct!";
+            correctEl.setAttribute('style', 'border-top:solid 5px #354F52;');
             firstButton.setAttribute('disabled','disabled');
             secondButton.setAttribute('disabled','disabled');
             thirdButton.setAttribute('disabled','disabled');
@@ -433,7 +357,7 @@ function questionPopUp() {
                     thirdButton.remove();
                     fourthButton.remove();
                     nextEl.remove();
-                    correctEl.textContent = "";
+                    correctEl.remove();
                     questionPopUp();
                 })
             } else {
@@ -450,14 +374,14 @@ function questionPopUp() {
                     thirdButton.remove();
                     fourthButton.remove();
                     submitEl.remove();
-                    correctEl.textContent = "";
+                    correctEl.remove();
                     endOfQuiz();
                 
                 })
             }
         } else {
-            // ifIncorrect();
             correctEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
+            correctEl.setAttribute('style', 'border-top:solid 5px #354F52;');
             firstButton.setAttribute('disabled','disabled');
             secondButton.setAttribute('disabled','disabled');
             thirdButton.setAttribute('disabled','disabled');
@@ -479,7 +403,7 @@ function questionPopUp() {
                     thirdButton.remove();
                     fourthButton.remove();
                     nextEl.remove();
-                    correctEl.textContent = "";
+                    correctEl.remove();
                     questionPopUp();
                 })
             } else {
@@ -496,7 +420,7 @@ function questionPopUp() {
                     thirdButton.remove();
                     fourthButton.remove();
                     submitEl.remove();
-                    correctEl.textContent = "";
+                    correctEl.remove();
                     endOfQuiz();
                 
                 })
@@ -506,9 +430,8 @@ function questionPopUp() {
 
     thirdButton.addEventListener("click", function() {
         if(currentChoice3 === questionAswer) {
-            // ifCorrect();
-            answerEl.setAttribute('class', 'visible');
             correctEl.textContent = "Correct!";
+            correctEl.setAttribute('style', 'border-top:solid 5px #354F52;');
             firstButton.setAttribute('disabled','disabled');
             secondButton.setAttribute('disabled','disabled');
             thirdButton.setAttribute('disabled','disabled');
@@ -530,7 +453,7 @@ function questionPopUp() {
                     thirdButton.remove();
                     fourthButton.remove();
                     nextEl.remove();
-                    correctEl.textContent = "";
+                    correctEl.remove();
                     questionPopUp();
                 })
             } else {
@@ -547,13 +470,14 @@ function questionPopUp() {
                     thirdButton.remove();
                     fourthButton.remove();
                     submitEl.remove();
-                    correctEl.textContent = "";
+                    correctEl.remove();
                     endOfQuiz();
                 
                 })
             }
         } else {
             correctEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
+            correctEl.setAttribute('style', 'border-top:solid 5px #354F52;');
             firstButton.setAttribute('disabled','disabled');
             secondButton.setAttribute('disabled','disabled');
             thirdButton.setAttribute('disabled','disabled');
@@ -575,7 +499,7 @@ function questionPopUp() {
                     thirdButton.remove();
                     fourthButton.remove();
                     nextEl.remove();
-                    correctEl.textContent = "";
+                    correctEl.remove();
                     questionPopUp();
                 })
             } else {
@@ -592,7 +516,7 @@ function questionPopUp() {
                     thirdButton.remove();
                     fourthButton.remove();
                     submitEl.remove();
-                    correctEl.textContent = "";
+                    correctEl.remove();
                     endOfQuiz();
                 
                 })
@@ -602,8 +526,8 @@ function questionPopUp() {
 
     fourthButton.addEventListener("click", function() {
         if(currentChoice4 === questionAswer) {
-            // ifCorrect();
             correctEl.textContent = "Correct!";
+            correctEl.setAttribute('style', 'border-top:solid 5px #354F52;');
             firstButton.setAttribute('disabled','disabled');
             secondButton.setAttribute('disabled','disabled');
             thirdButton.setAttribute('disabled','disabled');
@@ -625,7 +549,7 @@ function questionPopUp() {
                     thirdButton.remove();
                     fourthButton.remove();
                     nextEl.remove();
-                    correctEl.textContent = "";
+                    correctEl.remove();
                     questionPopUp();
                 })
             } else {
@@ -642,15 +566,15 @@ function questionPopUp() {
                     thirdButton.remove();
                     fourthButton.remove();
                     submitEl.remove();
-                    correctEl.textContent = "";
+                    correctEl.remove();
                     endOfQuiz();
                 
                 })
             }
             
         } else {
-            // ifIncorrect();
             correctEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
+            correctEl.setAttribute('style', 'border-top:solid 5px #354F52;');
             firstButton.setAttribute('disabled','disabled');
             secondButton.setAttribute('disabled','disabled');
             thirdButton.setAttribute('disabled','disabled');
@@ -672,7 +596,7 @@ function questionPopUp() {
                     thirdButton.remove();
                     fourthButton.remove();
                     nextEl.remove();
-                    correctEl.textContent = "";
+                    correctEl.remove();
                     questionPopUp();
                 })
             } else {
@@ -689,7 +613,7 @@ function questionPopUp() {
                     thirdButton.remove();
                     fourthButton.remove();
                     submitEl.remove();
-                    correctEl.textContent = "";
+                    correctEl.remove();
                     endOfQuiz();
                 
                 })
@@ -699,200 +623,10 @@ function questionPopUp() {
 
     index += 1;
     
-
-
-    // button1El.textContent = currentChoice1;
-    // button1El.setAttribute("class", "visible");
-
-    // button2El.textContent = currentChoice2;
-    // button2El.setAttribute("class", "visible");
-
-    // button3El.textContent = currentChoice3;
-    // button3El.setAttribute("class", "visible");
-
-    // button4El.textContent = currentChoice4;
-    // button4El.setAttribute("class", "visible");
-
-    // counter --;
-
-    // console.log("counter: " + counter);
-
-    // questionBankCopy.splice(index,1);
-
-    // console.log("This is the length of the array after it's spliced:")
-    // console.log(questionBankCopy.length);
-
-    
 }
 
-
-
-// function ifCorrect() {
-    // answerEl.textContent = "Correct!";
-    // reduceTimer = false;
-    // score += 1;
-    // console.log(score);
-    // if(index < 5) {
-    //     nextBtn.setAttribute("class", "visible");
-    //     nextBtn.addEventListener("click", questionPopUps);
-    // } else {
-    //     finishBtn.setAttribute("class", "visible");
-    //     finishBtn.addEventListener("click", endOfQuiz);
-    //     finishQuiz = true;
-    // }
-
-
-    // removeEventListeners();
-    // firstButton.setAttribute('disabled','disabled');
-    // secondButton.setAttribute('disabled','disabled');
-    // thirdButton.setAttribute('disabled','disabled');
-    // fourthButton.setAttribute('disabled','disabled');
-    
-   
-    // calculateScore();
-    // questionPopUps();
-    
-        // increaseScore = true;
-        // score += 1;
-        // console.log(score);
-    
-// }
-
-// function ifIncorrect() {
-    // answerEl.textContent = "Incorrect! The correct answer is \"" + questionAswer + ".\"";
-    
-    
-    
-    // removeEventListeners();
-    // button1El.setAttribute('disabled','disabled');
-    // button2El.setAttribute('disabled','disabled');
-    // button3El.setAttribute('disabled','disabled');
-    // button4El.setAttribute('disabled','disabled');
-    // button1El.setAttribute.disabled = true;
-    // button2El.setAttribute.disabled = true;
-    // button3El.setAttribute.disabled = true;
-    // button4El.setAttribute.disabled = true;
-    // reduceTimer === true;
-    // console.log(reduceTimer);
-    // questionPopUps();
-    // calculateScore();
-
-
-
-//     if(index < 5) {
-//         reduceTimer = true;
-//         console.log(reduceTimer);
-//         nextBtn.setAttribute("class", "visible");
-//         nextBtn.addEventListener("click", questionPopUps, true);
-//     } else {
-//         finishBtn.setAttribute("class", "visible");
-//         finishBtn.addEventListener("click", endOfQuiz);
-//         finishQuiz = true;
-//     }
-
-// }
-
-// function checkAnswer() {
-
-    // if (questionBankCopy.length === 0) {
-    //     endOfQuiz();
-    //     finishQuiz = true;
-    // };
-
-    // button1El.addEventListener("click", function() {
-    //     if(currentChoice1 === questionAswer) {
-    //         ifCorrect();
-    //     } else {
-    //         ifIncorrect();
-    //     }
-    // }, true);
-
-    // button2El.addEventListener("click", function() {
-    //     if(currentChoice2 === questionAswer) {
-    //         ifCorrect();
-    //     } else {
-    //         ifIncorrect();
-    //     }
-    // }, true);
-
-    // button3El.addEventListener("click", function() {
-    //     if(currentChoice3 === questionAswer) {
-    //         ifCorrect();
-    //     } else {
-    //         ifIncorrect();
-    //     }
-    // }, true);
-
-    // button4El.addEventListener("click", function() {
-    //     if(currentChoice4 === questionAswer) {
-    //         ifCorrect();
-    //     } else {
-    //         ifIncorrect();
-    //     }
-    // }, true);
-    
-    // return reduceTimer, score;
-    
-    
-
-// }
-
-// function removeEventListeners() {
-
-//     button1El.removeEventListener("click", function() {
-//         if(currentChoice1 === questionAswer) {
-//             ifCorrect();
-//         } else {
-//             ifIncorrect();
-//         }
-//     }, false);
-
-//     button2El.removeEventListener("click", function() {
-//         if(currentChoice2 === questionAswer) {
-//             ifCorrect();
-//         } else {
-//             ifIncorrect();
-//         }
-//     }, false);
-
-//     button3El.removeEventListener("click", function() {
-//         if(currentChoice3 === questionAswer) {
-//             ifCorrect();
-//         } else {
-//             ifIncorrect();
-//         }
-//     }, false);
-
-//     button4El.removeEventListener("click", function() {
-//         if(currentChoice4 === questionAswer) {
-//             ifCorrect();
-//         } else {
-//             ifIncorrect();
-//         }
-//     }, false);
-    
-
-// }
-
-// function calculateScore() {
-//     if (increaseScore === true) {
-//         score ++;
-//         increaseScore === false;
-//     }
-//     console.log("This is the score:")
-//     console.log(score);
-// }
-
 function endOfQuiz() {
-    // event.preventDefault();
     questionEl.remove();
-    // button1El.remove();
-    // button2El.remove();
-    // button3El.remove();
-    // button4El.remove();
-    // answerEl.remove();
-    // nextBtn.remove();
-    // finishBtn.remove();
 
     headingEl.setAttribute("class", "visible");
     headingEl.textContent = "You finished!";
@@ -955,82 +689,10 @@ function endOfQuiz() {
             else {
                 window.location.href = "Assets/high-scores.html";
             }
-        //         localStorage.setItem("userScore", mostRecentScore);
-        //         localStorage.setItem("userInitials", mostRecentUser);
-        //         // openHighScores();
-        //         // writeScoreData();
-        //     }
-    
-        // });
     
     console.log("End of quiz!");
 });
 }
-
-
-
-// function writeScoreData() {
-    // var submitEl = localStorage.getItem("userInitials");
-    // var score = localStorage.getItem("userScore");
-
-    // var newRow = document.createElement('tr');
-    // var initialsRow = document.createElement('td');
-    // initialsRow.textContent = submitEl;
-
-    // console.log("Log initials row:" + initialsRow);
-
-    // var scoreRow = document.createElement('td');
-    // scoreRow.textContent = score;
-
-    // console.log("Log score row:" +scoreRow);
-
-    // newRow.appendChild(initialsRow);
-    // newRow.appendChild(scoreRow);
-    
-//     scoreTable.appendChild(newRow);
-    
-// }
-
-// function openHighScores() {
-//     var submitEl = localStorage.getItem("userInitials");
-//     var score = localStorage.getItem("userScore");
-
-//     headingEl.textContent = "High Scores";
-//     subContentEl.setAttribute("class", "hidden");
-
-//     var creatTable = document.createElement('table');
-//     var creatTableHeader = document.createElement('thead');
-//     var creatTableHeaderData1 = document.createElement('td');
-//     var creatTableHeaderData2 = document.createElement('td');
-//     creatTableHeaderData1.textContent = "User Initials";
-//     creatTableHeader.appendChild(creatTableHeaderData1);
-//     creatTableHeaderData2.textContent = "Score";
-//     creatTableHeader.appendChild(creatTableHeaderData2);
-//     creatTable.appendChild(creatTableHeader);
-
-//     var tableBody = document.createElement('tbody')
-//     var newRow = document.createElement('tr');
-//     var initialsRow = document.createElement('td');
-//     initialsRow.textContent = submitEl;
-
-//     console.log("Log initials row:" + initialsRow);
-
-//     var scoreRow = document.createElement('td');
-//     scoreRow.textContent = score;
-
-//     console.log("Log score row:" +scoreRow);
-
-//     newRow.appendChild(initialsRow);
-//     newRow.appendChild(scoreRow);
-
-//     tableBody.appendChild(newRow);
-
-
-//     creatTable.appendChild(tableBody);
-//     mainContentEl.appendChild(creatTable);
-
-// }
-
 
 
 function init() {
