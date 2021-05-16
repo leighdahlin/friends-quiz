@@ -39,3 +39,9 @@ Key features of the quiz include:
 ![Screenshot for Medium Score Range](/Assets/JPEGs/trivia-not-quite-superfan.png)
 ![Screenshot for Best Score Range](/Assets/JPEGs/trivia-superfan.png)
 ![Screenshot of High Scores](/Assets/JPEGs/trivia-highscores-page.png)
+
+##  License & Copyright
+
+(c) Leigh Dahlin, UC Davis Coding Bootcamp
+
+Licensed under the [MIT License](License.md)
