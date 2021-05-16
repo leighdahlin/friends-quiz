@@ -28,7 +28,7 @@ Key features of the quiz include:
 
 ## Link to Deploy
 
-[Friends Trivia Quiz: Are You A Superfan?](https://leighdahlin.github.io/leigh-dahlin-homework4/)
+[Friends Trivia Quiz: Are You A Superfan?]( https://leighdahlin.github.io/friends-quiz/)
 
 ## Screenshots
 
